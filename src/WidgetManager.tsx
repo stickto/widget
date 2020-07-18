@@ -1,3 +1,4 @@
+// import React from 'react';
 import WidgetDef from './model/widget/def/WidgetDef';
 
 const widgets: Array<WidgetDef> = [];
