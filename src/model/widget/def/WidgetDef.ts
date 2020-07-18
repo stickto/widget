@@ -1,10 +1,13 @@
 import Field from '../../field/Field';
-import DropdownField from '../../field/DropdownField';
+import DropdownField, { Option } from '../../field/DropdownField';
 
 function initFields(fsArray: Array<any>): Array<Field> {
   return fsArray.map((fieldDef: any) => {
     if (fieldDef.options) { // dropdown field
-      return new DropdownField(fieldDef.name, fieldDef.label, fieldDef.options);
+      const optObjs: Array<Option> = fieldDef.options!.map((option: any) => (
+        new Option(option.id, option.name)
+      ));
+      return new DropdownField(fieldDef.name, fieldDef.label, optObjs);
     }
     return new Field(fieldDef.name, fieldDef.label);
   });

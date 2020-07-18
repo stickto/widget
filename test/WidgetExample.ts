@@ -1,5 +1,3 @@
-import { RefObject } from "react";
-
 const widget = {
   id: 'test001',
 
