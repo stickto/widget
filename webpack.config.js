@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 function resolvePath(dir) {
   return path.join(__dirname, dir);
@@ -28,6 +29,14 @@ module.exports = {
         test: /\.tsx?$/,
         loader: 'ts-loader',
       },
+      // {
+      //   test: /\.widget$/,
+      //   loader: 'url-loader',
+      //   options: {
+      //     limits: 10000,
+      //     name: 'widgets/[name].[ext]',
+      //   },
+      // },
     ],
   },
   resolve: {
@@ -50,8 +59,14 @@ module.exports = {
     port: 3000,
     publicPath: 'http://localhost:3000/dist/',
     hotOnly: true,
+    writeToDisk: true,
   },
   plugins: [
+    new CopyWebpackPlugin({
+      patterns: [{
+        from: 'widget', to: 'widget',
+      }],
+    }),
     new webpack.HotModuleReplacementPlugin(),
   ],
 };
