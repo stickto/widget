@@ -6,11 +6,15 @@ import WidgetDef from '../../../model/widget/def/WidgetDef';
 
 import './Toolbox.scss';
 
+type MyProps = {
+  collapsed: boolean,
+};
+
 type MyState = {
   widgets: Array<WidgetDef>,
 };
 
-class Toolbox extends React.Component <any, MyState> {
+class Toolbox extends React.Component <MyProps, MyState> {
   // constructor(props: any) {
   //   super(props);
   //   this.state = {
@@ -30,12 +34,15 @@ class Toolbox extends React.Component <any, MyState> {
       return <div />;
     }
     const { widgets } = this.state;
+    const { collapsed } = this.props;
     return (
-      <Card title="Widgets" bordered={false} className="toolbox">
-        { widgets.map((widget: WidgetDef) => (
-          <WidgetDefUI widget={widget} />
-        )) }
-      </Card>
+      collapsed ? <div style={{ transform: 'rotate(-90deg) translate(-40px, -10px)' }}>Widgets</div> : (
+        <Card title="Widgets" bordered={false} className="toolbox">
+          { widgets.map((widget: WidgetDef) => (
+            <WidgetDefUI widget={widget} />
+          )) }
+        </Card>
+      )
     );
   }
 }

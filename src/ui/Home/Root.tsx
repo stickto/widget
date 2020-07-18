@@ -22,8 +22,8 @@ class Root extends React.Component<any, any> {
     const { collapsed } = this.state;
     return (
       <Layout style={{ minHeight: '100vh' }}>
-        <Sider theme="light" width={340} collapsible collapsedWidth={0} collapsed={collapsed} onCollapse={this.onCollapse}>
-          <Toolbox />
+        <Sider theme="light" width={340} collapsible collapsedWidth={40} collapsed={collapsed} onCollapse={this.onCollapse}>
+          <Toolbox collapsed={collapsed} />
         </Sider>
         <Layout className="site-layout">
           <Button type="primary"> Hello, World! 111222333 </Button>

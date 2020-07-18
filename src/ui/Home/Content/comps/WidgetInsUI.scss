@@ -7,5 +7,42 @@
   box-sizing: border-box;
   &:hover {
     border: blue 1px solid;
+    .head {
+      display: block;
+    }
+  }
+  .head {
+    $iconSize: 16px;
+    $iconMargin: 8px;
+    $iconFullSize: $iconSize + $iconMargin * 2;
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: $iconFullSize;
+    text-align: left;
+    background-color: rgba(255, 255, 255, .8);
+    // border-bottom: 1px solid gray;
+    box-shadow: 1px 0px 1px 2px #ccc;
+    .def-icon {
+      position: absolute;
+      left: $iconMargin;
+      top: $iconMargin;
+      display: block;
+      width: $iconSize;
+    }
+    .def-name {
+      display: inline-block;
+      margin-left: $iconFullSize;
+      line-height: $iconFullSize;
+
+    }
+    .def-setting {
+      position: absolute;
+      top: $iconMargin;
+      right: $iconMargin;
+      width: $iconSize;
+    }
   }
 }
