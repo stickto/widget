@@ -29,10 +29,27 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
     };
   }
 
+  // componentWillMount() {
+  //   const { widgetIns } = this.state;
+  //   if (widgetIns.willMount) {
+  //     widgetIns.willMount();
+  //   }
+  // }
+
   componentDidMount() {
     const { widgetIns } = this.state;
     const ele = widgetIns.render() as HTMLElement;
     this.container!.appendChild(ele);
+    if (widgetIns.didMount) {
+      widgetIns.didMount();
+    }
+  }
+
+  componentWillUnmount() {
+    const { widgetIns } = this.state;
+    if (widgetIns.willUnmount) {
+      widgetIns.willUnmount();
+    }
   }
 
   render() {

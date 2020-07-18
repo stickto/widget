@@ -78,12 +78,12 @@ class WidgetLabel {
     this.props = props;
   }
 
-  willMount() {
-    console.log(`will mount ${this.name}`);
+  didMount() {
+    console.log(`did mount ${this.name}`);
   }
 
-  didUnmount() {
-    console.log(`did unmount ${this.name}`);
+  willUnmount() {
+    console.log(`will unmount ${this.name}`);
   }
 
   render() {
