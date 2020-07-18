@@ -28,6 +28,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.21",
+    "react-rnd": "^10.1.10",
     "redux": "^4.0.0",
     "typescript": "^3.7.4"
   },
