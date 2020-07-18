@@ -59,6 +59,10 @@ class WidgetRelease {
 }
 
 class WidgetLabel {
+  name = 'WidgetLabel';
+
+  props: any;
+
   static settings = {
     id: 'label',
     name: 'Label',
@@ -69,6 +73,26 @@ class WidgetLabel {
       label: 'Font Size',
     }],
   };
+
+  constructor(props: any) {
+    this.props = props;
+  }
+
+  willMount() {
+    console.log(`will mount ${this.name}`);
+  }
+
+  didUnmount() {
+    console.log(`did unmount ${this.name}`);
+  }
+
+  render() {
+    const { text, fontSize } = this.props;
+    const div = document.createElement('div');
+    div.style.fontSize = fontSize || '10px';
+    div.innerText = text;
+    return div;
+  }
 }
 
 class WidgetWeather {

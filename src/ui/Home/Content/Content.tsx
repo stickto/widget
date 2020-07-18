@@ -1,13 +1,13 @@
 import React from 'react';
 import { Card } from 'antd';
 import WidgetInsUI from './comps/WidgetInsUI';
-import defHelper from '../../../persistence/defHelper';
-import WidgetDef from '../../../model/widget/def/WidgetDef';
+import instanceHelper from '../../../persistence/instanceHelper';
+import WidgetConfig from '../../../model/widget/instance/WidgetConfig';
 
 import './Content.scss';
 
 type MyState = {
-  widgets: Array<WidgetDef>,
+  widgetConfigs: Array<WidgetConfig>,
 };
 
 class Content extends React.Component <any, MyState> {
@@ -19,9 +19,9 @@ class Content extends React.Component <any, MyState> {
   // }
 
   componentDidMount() {
-    const widgets = defHelper.load();
+    const widgetConfigs = instanceHelper.load();
     this.setState({
-      widgets,
+      widgetConfigs,
     });
   }
 
@@ -29,11 +29,11 @@ class Content extends React.Component <any, MyState> {
     if (!this.state) {
       return <div />;
     }
-    const { widgets } = this.state;
+    const { widgetConfigs } = this.state;
     return (
       <div className="content-panel">
-        { widgets.map((widget: WidgetDef) => (
-          <WidgetInsUI widget={widget} />
+        { widgetConfigs.map((widgetConfig: WidgetConfig) => (
+          <WidgetInsUI widgetConfig={widgetConfig} />
         )) }
       </div>
     );

@@ -1,29 +1,45 @@
 import React from 'react';
 import { Card } from 'antd';
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { SettingOutlined } from '@ant-design/icons';
 // import WidgetDef from 'model@/widget/def/WidgetDef';
-import WidgetDef from '../../../../model/widget/def/WidgetDef';
-// import WidgetConfig from 'model@/widget/instance/WidgetConfig';
+import WidgetConfig from '../../../../model/widget/instance/WidgetConfig';
+// import WidgetDef from '../../../../model/widget/def/WidgetDef';
 import './WidgetInsUI.scss';
 
 type MyProps = {
-  widget: WidgetDef,
+  widgetConfig: WidgetConfig,
 };
 
 type MyState = {
-  widget: WidgetDef,
+  widgetConfig: WidgetConfig,
+  widgetIns: any,
 };
 
 class WidgetInsUI extends React.Component <MyProps, MyState> {
+  container: HTMLElement | null = null;
+
   constructor(props: MyProps) {
     super(props);
+    const { widgetConfig } = this.props;
+    const WidgetClz = props.widgetConfig.widget.clz!;
+    const widgetIns = new WidgetClz(widgetConfig.fieldValues);
     this.state = {
-      widget: props.widget,
+      widgetConfig: props.widgetConfig,
+      widgetIns,
     };
   }
 
+  componentDidMount() {
+    const { widgetIns } = this.state;
+    const ele = widgetIns.render() as HTMLElement;
+    this.container!.appendChild(ele);
+  }
+
   render() {
-    const { widget } = this.state;
+    const { widgetConfig } = this.state;
+    // const { widget } = widgetConfig;
+    const { widget } = widgetConfig;
+    // console.log(widgetIns.render());
     return (
       <Card
         hoverable
@@ -43,9 +59,7 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
           <div className="def-name">{widget.name}</div>
           <SettingOutlined className="def-setting" />
         </div>
-        <p>Card content</p>
-        <p>Card content</p>
-        <p>Card content</p>
+        <div ref={(node) => { this.container = node; }} />
       </Card>
     );
   }

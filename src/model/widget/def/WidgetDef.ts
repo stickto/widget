@@ -24,7 +24,7 @@ class WidgetDef {
 
   css?: string;
 
-  clz?: Function;
+  clz?: any;
 
   // private static instance: WidgetDef;
 

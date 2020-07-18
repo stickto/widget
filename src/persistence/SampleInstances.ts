@@ -1,7 +1,14 @@
 const ins1 = {
   widget: 'label',
   fieldValues: {
+    text: 'Hello World',
     fontSize: '14px',
+  },
+  layout: {
+    x: 1,
+    y: 1,
+    width: 3,
+    height: 3,
   },
 };
 
