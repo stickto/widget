@@ -39,7 +39,7 @@ class Toolbox extends React.Component <MyProps, MyState> {
       collapsed ? <div style={{ transform: 'rotate(-90deg) translate(-40px, -10px)' }}>Widgets</div> : (
         <Card title="Widgets" bordered={false} className="toolbox">
           { widgets.map((widget: WidgetDef) => (
-            <WidgetDefUI widget={widget} />
+            <WidgetDefUI key={widget.id} widget={widget} />
           )) }
         </Card>
       )

@@ -14,7 +14,7 @@ type MyState = {
   widget: WidgetDef,
 };
 
-class WidgetDefUI extends React.Component <MyProps, MyState> {
+class WidgetInsUI extends React.Component <MyProps, MyState> {
   constructor(props: MyProps) {
     super(props);
     this.state = {
@@ -51,4 +51,4 @@ class WidgetDefUI extends React.Component <MyProps, MyState> {
   }
 }
 
-export default WidgetDefUI;
+export default WidgetInsUI;

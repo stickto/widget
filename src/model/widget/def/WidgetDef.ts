@@ -24,18 +24,19 @@ class WidgetDef {
 
   css?: string;
 
-  script?: string;
+  clz?: Function;
 
   // private static instance: WidgetDef;
 
-  constructor(defObj: any) {
+  constructor(WidgetClz: any) {
+    const defObj = WidgetClz.settings;
     const ins = this; // new WidgetDef();
     ins.id = defObj.id;
     ins.name = defObj.name;
     ins.fields = initFields(defObj.fields);
     ins.icon = defObj.icon;
     ins.css = defObj.css;
-    ins.script = defObj.script;
+    this.clz = WidgetClz;
     // WidgetDef.instance = ins;
   }
 

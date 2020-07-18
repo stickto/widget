@@ -3,10 +3,11 @@ import Widget from '../src/model/widget/def/WidgetDef';
 import DropdownField, { Option } from '../src/model/field/DropdownField';
 
 test('init widget', () => {
-  const widgetData = sampleWidgets[0];
-  const ins = new Widget(widgetData);
+  const WidgetClz = sampleWidgets[0];
+  const ins = new Widget(WidgetClz);
+  const { settings } = WidgetClz;
   // expect(ins).not(null);
-  expect(ins.id).toBe(widgetData.id);
+  expect(ins.id).toBe(settings.id);
   expect(ins.fields?.length).toBe(2);
   const field = ins.fields![1];
   expect(field).toBeInstanceOf(DropdownField);
