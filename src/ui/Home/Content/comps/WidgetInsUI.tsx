@@ -5,6 +5,7 @@ import { SettingOutlined } from '@ant-design/icons';
 import WidgetConfig from '../../../../model/widget/instance/WidgetConfig';
 // import WidgetDef from '../../../../model/widget/def/WidgetDef';
 import './WidgetInsUI.scss';
+import WidgetLayout from '../../../../model/widget/instance/WidgetLayout';
 
 type MyProps = {
   widgetConfig: WidgetConfig,
@@ -52,11 +53,25 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
     }
   }
 
+  calcLayout = (layout: WidgetLayout) => {
+    function convert(num: number) {
+      return `${num * 10}px`;
+    }
+    return {
+      left: convert(layout.x),
+      top: convert(layout.y),
+      width: convert(layout.width),
+      height: convert(layout.height),
+    };
+  }
+
   render() {
     const { widgetConfig } = this.state;
     // const { widget } = widgetConfig;
     const { widget } = widgetConfig;
     // console.log(widgetIns.render());
+    const style = this.calcLayout(widgetConfig.layout);
+
     return (
       <Card
         hoverable
@@ -64,7 +79,7 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
         className="widget-ins-ui"
         // title={widget.name}
         // extra={<a href="#">More</a>}
-        style={{ width: 300 }}
+        style={{ position: 'absolute', overflow: 'hidden', ...style }}
         // actions={[
         //   <SettingOutlined key="setting" />,
         //   <EditOutlined key="edit" />,
