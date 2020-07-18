@@ -26,26 +26,25 @@ class WidgetDef {
 
   script?: string;
 
-  private static instance: WidgetDef;
+  // private static instance: WidgetDef;
 
-  static init(defObj: any) {
-    // const defObj = JSON.parse(defString);
-    const ins = new WidgetDef();
+  constructor(defObj: any) {
+    const ins = this; // new WidgetDef();
     ins.id = defObj.id;
     ins.name = defObj.name;
     ins.fields = initFields(defObj.fields);
     ins.icon = defObj.icon;
     ins.css = defObj.css;
     ins.script = defObj.script;
-    WidgetDef.instance = ins;
+    // WidgetDef.instance = ins;
   }
 
-  static getInstance(): WidgetDef {
-    if (!WidgetDef.instance) {
-      throw new Error('You forget to init this widget');
-    }
-    return WidgetDef.instance;
-  }
+  // static getInstance(): WidgetDef {
+  //   if (!WidgetDef.instance) {
+  //     throw new Error('You forget to init this widget');
+  //   }
+  //   return WidgetDef.instance;
+  // }
 }
 
 export default WidgetDef;

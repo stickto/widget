@@ -1,8 +1,6 @@
 const widget = {
   id: 'test001',
-
   name: 'Test Widget',
-
   fields: [{
     name: 'projName',
     label: 'Project Name',
@@ -20,6 +18,9 @@ const widget = {
       name: 'Others',
     }],
   }],
+  icon: 'https://static.thenounproject.com/png/3381813-200.png',
+  css: '',
+  script: '',
 };
 
-export default { widget };
+export default [widget];

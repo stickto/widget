@@ -1,11 +1,10 @@
-import testData from './WidgetExample';
+import sampleWidgets from '../src/persistence/SampleWidgets';
 import Widget from '../src/model/widget/def/WidgetDef';
 import DropdownField, { Option } from '../src/model/field/DropdownField';
 
 test('init widget', () => {
-  const widgetData = testData.widget;
-  Widget.init(widgetData);
-  const ins = Widget.getInstance();
+  const widgetData = sampleWidgets[0];
+  const ins = new Widget(widgetData);
   // expect(ins).not(null);
   expect(ins.id).toBe(widgetData.id);
   expect(ins.fields?.length).toBe(2);
