@@ -1,7 +1,10 @@
 import React from 'react';
+import { Card } from 'antd';
 import WidgetDefUI from './comps/WidgetDefUI';
 import defHelper from '../../../persistence/defHelper';
 import WidgetDef from '../../../model/widget/def/WidgetDef';
+
+import './Toolbox.scss';
 
 type MyState = {
   widgets: Array<WidgetDef>,
@@ -28,11 +31,11 @@ class Toolbox extends React.Component <any, MyState> {
     }
     const { widgets } = this.state;
     return (
-      <div>
+      <Card title="Widgets" bordered={false} className="toolbox">
         { widgets.map((widget: WidgetDef) => (
           <WidgetDefUI widget={widget} />
         )) }
-      </div>
+      </Card>
     );
   }
 }

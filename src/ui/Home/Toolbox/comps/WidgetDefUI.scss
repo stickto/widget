@@ -1,0 +1,20 @@
+.widget-def-ui {
+  width: 100px;
+  padding: 5px;
+  margin: 20px;
+  text-align: center;
+  display: inline-block;
+  &:hover {
+    outline: blue 1px solid;
+  }
+  .def-icon {
+    display: inline-block;
+    width: 50px;
+  }
+  .def-name {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
