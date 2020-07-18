@@ -1,7 +1,7 @@
 import WidgetLayout from './WidgetLayout';
 
 export default class WidgetConfig {
-  // fieldValues: Object<string, string>;
+  fieldValues: Map<string, string>;
 
-  // layout: WidgetLayout;
+  layout: WidgetLayout;
 }

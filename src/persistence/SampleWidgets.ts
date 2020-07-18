@@ -1,4 +1,4 @@
-import _ from 'lodash';
+// import _ from 'lodash';
 
 const projField = {
   name: 'projName',
@@ -35,6 +35,15 @@ const widget = {
       name: 'Others',
     }],
   }],
+};
+
+const widgetProject = {
+  id: 'project',
+  name: 'Project Switch',
+  icon: 'https://static.thenounproject.com/png/1823861-200.png',
+  css: '',
+  script: '',
+  fields: [],
 };
 
 const widgetRelease = {
@@ -80,4 +89,4 @@ const widgetWeather = {
   }],
 };
 
-export default [widget, widgetRelease, widgetLabel, widgetWeather];
+export default [widget, widgetProject, widgetRelease, widgetLabel, widgetWeather];

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout, Button } from 'antd';
 import Toolbox from './Toolbox';
+import ContentPanel from './Content';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -13,7 +14,7 @@ class Root extends React.Component<any, any> {
   }
 
   onCollapse = (collapsed: boolean) => {
-    console.log(collapsed);
+    // console.log(collapsed);
     this.setState({ collapsed });
   };
 
@@ -26,6 +27,7 @@ class Root extends React.Component<any, any> {
         </Sider>
         <Layout className="site-layout">
           <Button type="primary"> Hello, World! 111222333 </Button>
+          <ContentPanel />
         </Layout>
       </Layout>
     );
