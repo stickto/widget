@@ -1,0 +1,8 @@
+{
+  "extends": "@ali/rhino",
+  "rules": {
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
+    "no-unused-expressions": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }]
+  }
+}
