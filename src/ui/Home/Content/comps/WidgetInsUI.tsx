@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Card } from 'antd';
 import { Rnd } from 'react-rnd';
 import { SettingOutlined } from '@ant-design/icons';
 // import WidgetDef from 'model@/widget/def/WidgetDef';
+import { ACTION } from '../../../../reducers/config';
 import WidgetConfig from '../../../../model/widget/instance/WidgetConfig';
 // import WidgetDef from '../../../../model/widget/def/WidgetDef';
 import './WidgetInsUI.scss';
@@ -10,12 +12,25 @@ import WidgetLayout from '../../../../model/widget/instance/WidgetLayout';
 
 type MyProps = {
   widgetConfig: WidgetConfig,
+  changeLayout?: any,
 };
 
 type MyState = {
   widgetConfig: WidgetConfig,
   widgetIns: any,
 };
+
+const mapDispatchToProps = (dispatch: any) => ({
+  changeLayout: (config: WidgetConfig, layout: WidgetLayout) => {
+    dispatch({
+      type: ACTION.LAYOUT_CHANGED,
+      payload: {
+        config,
+        layout,
+      },
+    });
+  },
+});
 
 const GRID_SIZE = 10;
 
@@ -65,6 +80,32 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
     };
   };
 
+  onDragStop = (e:any, d: any) => {
+    const { widgetConfig, changeLayout } = this.props;
+    const layoutObj = {
+      x: d.x,
+      y: d.y,
+      width: widgetConfig.layout.width,
+      height: widgetConfig.layout.height,
+    };
+    const layout = new WidgetLayout(layoutObj.x, layoutObj.y, layoutObj.width, layoutObj.height);
+    changeLayout(widgetConfig, layout);
+  };
+
+  onResizeStop = (e: any, direction: any, ref: any, delta: any, position: any) => {
+    const layoutObj = {
+      width: parseInt(ref.style.width, 10),
+      height: parseInt(ref.style.height, 10),
+      x: position.x,
+      y: position.y,
+    };
+    // console.log(e, ref, position);
+    console.log(layoutObj);
+    const layout = new WidgetLayout(layoutObj.x, layoutObj.y, layoutObj.width, layoutObj.height);
+    const { widgetConfig, changeLayout } = this.props;
+    changeLayout(widgetConfig, layout);
+  };
+
   render() {
     const { widgetConfig } = this.state;
     // const { widget } = widgetConfig;
@@ -86,22 +127,15 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
         default={style}
         resizeGrid={[GRID_SIZE, GRID_SIZE]}
         dragGrid={[GRID_SIZE, GRID_SIZE]}
-        // style={{ position: 'absolute', overflow: 'hidden', ...style }}
+        onResizeStop={this.onResizeStop}
+        onDragStop={this.onDragStop}
       >
         <Card
-          // hoverable
           size="small"
           className="widget-ins-ui"
           style={{
             position: 'absolute', left: 0, top: 0, bottom: 0, right: 0,
           }}
-          // title={widget.name}
-          // extra={<a href="#">More</a>}
-          // actions={[
-          //   <SettingOutlined key="setting" />,
-          //   <EditOutlined key="edit" />,
-          //   <EllipsisOutlined key="ellipsis" />,
-          // ]}
         >
           <div className="head">
             <img className="def-icon" src={widget.icon} alt={widget.name} />
@@ -115,4 +149,4 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
   }
 }
 
-export default WidgetInsUI;
+export default connect(undefined, mapDispatchToProps)(WidgetInsUI);
