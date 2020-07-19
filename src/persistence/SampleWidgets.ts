@@ -91,12 +91,14 @@ class WidgetLabel {
     console.log(`will unmount ${this.name}`);
   }
 
-  render() {
-    const { text, fontSize } = this.props;
-    const div = document.createElement('div');
-    div.style.fontSize = fontSize || '10px';
-    div.innerText = text;
-    return div;
+  async render() {
+    return new Promise((resolve: any) => {
+      const { text, fontSize } = this.props;
+      const div = document.createElement('div');
+      div.style.fontSize = fontSize || '10px';
+      div.innerText = text;
+      resolve(div);
+    });
   }
 }
 

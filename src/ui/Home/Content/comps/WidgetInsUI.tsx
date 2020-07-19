@@ -65,6 +65,14 @@ function alighToGrid(layoutObj: any) {
   });
 }
 
+async function renderIns(container: HTMLElement, widgetIns: any, mounted: boolean) {
+  const ele = await widgetIns.render() as HTMLElement;
+  container.appendChild(ele);
+  if (!mounted && widgetIns.didMount) {
+    widgetIns.didMount();
+  }
+}
+
 class WidgetInsUI extends React.Component <MyProps, MyState> {
   container: HTMLElement | null = null;
 
@@ -92,20 +100,27 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
 
   componentDidMount() {
     const { widgetIns } = this.state;
-    const ele = widgetIns.render() as HTMLElement;
-    this.container!.appendChild(ele);
-    if (widgetIns.didMount) {
-      widgetIns.didMount();
-    }
+    renderIns(this.container!, widgetIns, false);
+    // const ele = await widgetIns.render() as HTMLElement;
+    // this.container!.appendChild(ele);
+    // if (widgetIns.didMount) {
+    //   widgetIns.didMount();
+    // }
   }
 
   componentDidUpdate() {
+    // const { widgetConfig, widgetIns } = this.state;
+    // widgetIns.props = widgetConfig.fieldValues;
+    // const ele = widgetIns.render() as HTMLElement;
+    // const container = this.container!;
+    // container.removeChild(container.childNodes[0]);
+    // container.appendChild(ele);
+
     const { widgetConfig, widgetIns } = this.state;
     widgetIns.props = widgetConfig.fieldValues;
-    const ele = widgetIns.render() as HTMLElement;
     const container = this.container!;
     container.removeChild(container.childNodes[0]);
-    container.appendChild(ele);
+    renderIns(container, widgetIns, true);
   }
 
   componentWillUnmount() {
