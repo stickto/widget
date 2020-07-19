@@ -1,4 +1,4 @@
-function loadScript(src) {
+function loadScript(src: string) {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
     script.src = src;
@@ -12,7 +12,7 @@ function loadScript(src) {
   });
 }
 
-function loadStyle(src) {
+function loadStyle(src: string) {
   return new Promise((resolve, reject) => {
     const style = document.createElement('link');
     style.href = src;

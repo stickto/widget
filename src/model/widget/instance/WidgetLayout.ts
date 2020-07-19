@@ -17,4 +17,13 @@ export default class WidgetLayout {
   static fromObject(obj: any) {
     return new WidgetLayout(obj.x, obj.y, obj.width, obj.height);
   }
+
+  toObject(): object {
+    const {
+      x, y, width, height,
+    } = this;
+    return {
+      x, y, width, height,
+    };
+  }
 }

@@ -28,4 +28,12 @@ export default class WidgetConfig {
       insObj.layout.width, insObj.layout.height);
     return new WidgetConfig(widget, fieldValues, layout);
   }
+
+  toObject(): object {
+    return {
+      widget: this.widget.id,
+      fieldValues: this.fieldValues,
+      layout: this.layout.toObject,
+    };
+  }
 }
