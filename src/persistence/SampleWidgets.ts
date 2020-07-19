@@ -65,6 +65,8 @@ class WidgetTest {
 class WidgetProject {
   props: any;
 
+  emitEvent: any;
+
   static settings = {
     id: 'project',
     name: 'Project Switch',
@@ -75,6 +77,7 @@ class WidgetProject {
 
   async render() {
     const { projName } = this.props;
+    const { emitEvent } = this;
     return new Promise((resolve: any) => {
       const titleNode = document.createElement('div');
       titleNode.style.fontSize = '18px';
@@ -90,6 +93,11 @@ class WidgetProject {
         }
         sel.appendChild(opt);
       });
+      sel.onchange = () => {
+        emitEvent('fieldValueChanged', {
+          projName: sel.value,
+        });
+      };
       titleNode.appendChild(sel);
       resolve(titleNode);
     });

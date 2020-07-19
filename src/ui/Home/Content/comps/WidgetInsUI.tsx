@@ -17,6 +17,7 @@ type MyProps = {
   changeLayout?: any,
   changeFieldValues?:any,
   remove?: any,
+  changeFieldValuesAll?: any,
 };
 
 type MyState = {
@@ -52,6 +53,14 @@ const mapDispatchToProps = (dispatch: any) => ({
       },
     });
   },
+  changeFieldValuesAll: (fieldValues: object) => {
+    dispatch({
+      type: ACTION.FIELD_VALUE_CHANGED_ALL,
+      payload: {
+        fieldValues,
+      },
+    });
+  },
 });
 
 const GRID_SIZE = 10;
@@ -82,6 +91,7 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
     const WidgetClz = props.widgetConfig.widget.clz!;
     const widgetIns = new WidgetClz();
     widgetIns.props = widgetConfig.fieldValues;
+    widgetIns.emitEvent = this.emitEvent;
     this.state = {
       widgetConfig: props.widgetConfig,
       widgetIns,
@@ -130,6 +140,15 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
       widgetIns.willUnmount();
     }
   }
+
+  emitEvent = (name: string, data: any) => {
+    if (name === 'fieldValueChanged') {
+      const { changeFieldValuesAll } = this.props;
+      changeFieldValuesAll(data);
+    } else {
+      throw new Error(`unsupported event ${name}`);
+    }
+  };
 
   calcLayout = (layout: WidgetLayout) => {
     const {

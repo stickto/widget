@@ -8,6 +8,7 @@ export enum ACTION {
   CREATE = 'create',
   REMOVE = 'remove',
   FIELD_VALUE_CHANGED = 'fieldValueChanged',
+  FIELD_VALUE_CHANGED_ALL = 'fieldValueChangedAll', // change field values of all widgets, this is for event
   LAYOUT_CHANGED = 'layoutChanged',
 }
 
@@ -22,6 +23,10 @@ type PayloadChangeLayout = {
 
 type PayloadChangeFieldValues = {
   config: WidgetConfig,
+  fieldValues: object,
+};
+
+type PayloadChangeFieldValuesAll = {
   fieldValues: object,
 };
 
@@ -80,6 +85,19 @@ const configReducer = (state: MyState = initState, action: MyAction) => {
       const { id } = action.payload as PayloadRemove;
       const newConfigs = state.configs.filter((config: WidgetConfig) => config.id !== id);
       instanceHelper.save(newConfigs);
+      return {
+        configs: newConfigs,
+      };
+    }
+    case ACTION.FIELD_VALUE_CHANGED_ALL: {
+      const { fieldValues } = action.payload as PayloadChangeFieldValuesAll;
+      const newConfigs = state.configs.map((config: WidgetConfig) => {
+        // eslint-disable-next-line no-param-reassign
+        config.fieldValues = { ...config.fieldValues, ...fieldValues };
+        const newCfg = WidgetConfig.fromObject(config.toObject());
+        return newCfg;
+      });
+      instanceHelper.save(newConfigs as Array<WidgetConfig>);
       return {
         configs: newConfigs,
       };
