@@ -20,13 +20,18 @@ type PayloadChangeLayout = {
   layout: WidgetLayout,
 };
 
+type PayloadChangeFieldValues = {
+  config: WidgetConfig,
+  fieldValues: object,
+};
+
 type MyState = {
   configs: Array<WidgetConfig>
 };
 
 type MyAction = {
   type: ACTION,
-  payload: PayloadCreate | PayloadChangeLayout | any,
+  payload: PayloadCreate | PayloadChangeLayout | PayloadChangeFieldValues,
 };
 
 const initState = {
@@ -48,6 +53,15 @@ const configReducer = (state: MyState = initState, action: MyAction) => {
     case ACTION.LAYOUT_CHANGED: {
       const { config, layout } = action.payload as PayloadChangeLayout;
       config.layout = layout;
+      const newConfigs = [...state.configs];
+      instanceHelper.save(newConfigs);
+      return {
+        configs: newConfigs,
+      };
+    }
+    case ACTION.FIELD_VALUE_CHANGED: {
+      const { config, fieldValues } = action.payload as PayloadChangeFieldValues;
+      config.fieldValues = fieldValues;
       const newConfigs = [...state.configs];
       instanceHelper.save(newConfigs);
       return {

@@ -7,7 +7,7 @@ export default class WidgetConfig {
 
   widget: WidgetDef;
 
-  fieldValues: Object;
+  fieldValues: object;
 
   layout: WidgetLayout;
 
