@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
-import { Modal, Form, Input } from 'antd';
+import { Modal, Form, Input, Select } from 'antd';
 import Field from '../../../../model/field/Field';
+import DropdownField, { Option } from '../../../../model/field/DropdownField';
 
 type MyProps = {
   fields: Array<Field>,
@@ -40,7 +41,15 @@ const SettingUI: FC<MyProps> = (props: MyProps) => {
               name={field.name}
               key={field.name}
             >
-              <Input />
+              {field instanceof DropdownField ? (
+                <Select>
+                  {field.options.map((opt: Option) => (
+                    <Select.Option key={opt.id} value={opt.id}>{opt.name}</Select.Option>
+                  ))}
+                </Select>
+              ) : (
+                <Input />
+              )}
             </Form.Item>
           ))}
         </Form>

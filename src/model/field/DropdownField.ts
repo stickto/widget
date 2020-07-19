@@ -1,7 +1,7 @@
 import Field from './Field';
 
 class Option {
-  id: String;
+  id: string;
 
   name: string;
 
