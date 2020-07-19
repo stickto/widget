@@ -60,7 +60,7 @@ class Toolbox extends React.Component <MyProps, MyState> {
     return (
       collapsed ? <div style={{ transform: 'rotate(-90deg) translate(-40px, -10px)' }}>Widgets</div> : (
         <Card
-          title="Widgets111"
+          title="Widgets"
           bordered={false}
           className="toolbox"
         >

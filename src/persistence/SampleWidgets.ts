@@ -70,8 +70,30 @@ class WidgetProject {
     name: 'Project Switch',
     icon: 'https://static.thenounproject.com/png/1823861-200.png',
     css: '',
-    fields: [],
+    fields: [projField],
   };
+
+  async render() {
+    const { projName } = this.props;
+    return new Promise((resolve: any) => {
+      const titleNode = document.createElement('div');
+      titleNode.style.fontSize = '18px';
+      titleNode.innerText = 'Project Switch：';
+      const sel = document.createElement('select');
+      projField.options.forEach((d: any) => {
+        const opt = document.createElement('option');
+        opt.value = d.id;
+        opt.text = d.name;
+        opt.style.fontSize = '14px';
+        if (d.id === projName) {
+          opt.selected = true;
+        }
+        sel.appendChild(opt);
+      });
+      titleNode.appendChild(sel);
+      resolve(titleNode);
+    });
+  }
 }
 
 class WidgetRelease {
