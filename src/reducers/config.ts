@@ -67,6 +67,10 @@ const configReducer = (state: MyState = initState, action: MyAction) => {
       const { config, fieldValues } = action.payload as PayloadChangeFieldValues;
       config.fieldValues = fieldValues;
       const newConfigs = [...state.configs];
+      const cfgIdx = newConfigs.indexOf(config);
+      // reconstruct the config so that ui can be updated
+      const newCfg = WidgetConfig.fromObject(config.toObject());
+      newConfigs[cfgIdx] = newCfg!;
       instanceHelper.save(newConfigs);
       return {
         configs: newConfigs,

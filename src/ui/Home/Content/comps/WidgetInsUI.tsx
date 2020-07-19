@@ -80,6 +80,16 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
     };
   }
 
+  static getDerivedStateFromProps(nextProps: any, prevState: any) {
+    const { widgetConfig } = nextProps;
+    if (widgetConfig !== prevState.widgetConfig) {
+      return {
+        widgetConfig,
+      };
+    }
+    return null;
+  }
+
   componentDidMount() {
     const { widgetIns } = this.state;
     const ele = widgetIns.render() as HTMLElement;
@@ -87,6 +97,15 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
     if (widgetIns.didMount) {
       widgetIns.didMount();
     }
+  }
+
+  componentDidUpdate() {
+    const { widgetConfig, widgetIns } = this.state;
+    widgetIns.props = widgetConfig.fieldValues;
+    const ele = widgetIns.render() as HTMLElement;
+    const container = this.container!;
+    container.removeChild(container.childNodes[0]);
+    container.appendChild(ele);
   }
 
   componentWillUnmount() {
