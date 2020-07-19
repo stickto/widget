@@ -9,6 +9,7 @@ function resolvePath(dir) {
 module.exports = {
   entry: './src/index.js',
   mode: 'development',
+  devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
       {

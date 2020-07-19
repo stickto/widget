@@ -6,6 +6,7 @@ import './WidgetDefUI.scss';
 
 type MyProps = {
   widget: WidgetDef,
+  onClick?: any,
 };
 
 type MyState = {
@@ -20,10 +21,23 @@ class WidgetDefUI extends React.Component <MyProps, MyState> {
     };
   }
 
+  onClick() {
+    const { onClick } = this.props;
+    if (onClick) {
+      const { widget } = this.state;
+      onClick(widget);
+    }
+  }
+
   render() {
     const { widget } = this.state;
+    // const { onClick } = this.props;
     return (
-      <div className="widget-def-ui" title={widget.name}>
+      <div
+        className="widget-def-ui"
+        title={widget.name}
+        onClick={this.onClick}
+      >
         <img className="def-icon" src={widget.icon} alt={widget.name} />
         <div className="def-name">{widget.name}</div>
       </div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Card } from 'antd';
 import WidgetInsUI from './comps/WidgetInsUI';
 import instanceHelper from '../../../persistence/instanceHelper';
 import WidgetConfig from '../../../model/widget/instance/WidgetConfig';

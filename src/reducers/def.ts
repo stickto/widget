@@ -1,7 +1,6 @@
 /* eslint-disable no-case-declarations */
 import Widget from '../model/widget/def/WidgetDef';
-import WidgetConfig from '../model/widget/instance/WidgetConfig';
-import instanceHelper from '../persistence/instanceHelper';
+import defHelper from '../persistence/defHelper';
 
 export enum ACTION {
   CREATE = 'create',
@@ -15,7 +14,7 @@ type PayloadCreate = {
 };
 
 type MyState = {
-  configs: Array<WidgetConfig>
+  widgets: Array<Widget>
 };
 
 type MyAction = {
@@ -24,23 +23,21 @@ type MyAction = {
 };
 
 const initState = {
-  configs: instanceHelper.load(),
+  widgets: defHelper.load(),
 };
 
-const config = (state: MyState = initState, action: MyAction) => {
+const defReducer = (state: MyState = initState, action: MyAction) => {
   switch (action.type) {
     case ACTION.CREATE:
       const { widget } = action.payload as PayloadCreate;
-      const widgetConfig = new WidgetConfig(instanceHelper.getNextId(), widget);
-      const newConfigs = [...state.configs, widgetConfig];
-      // save it
-      instanceHelper.save(newConfigs);
+      const newDefs = [...state.widgets, widget];
+      // no need to save
       return {
-        configs: newConfigs,
+        widgets: newDefs,
       };
     default:
       return state;
   }
 };
 
-export default config;
+export default defReducer;
