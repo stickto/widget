@@ -80,7 +80,8 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
     super(props);
     const { widgetConfig } = this.props;
     const WidgetClz = props.widgetConfig.widget.clz!;
-    const widgetIns = new WidgetClz(widgetConfig.fieldValues);
+    const widgetIns = new WidgetClz();
+    widgetIns.props = widgetConfig.fieldValues;
     this.state = {
       widgetConfig: props.widgetConfig,
       widgetIns,

@@ -17,6 +17,8 @@ const projField = {
 };
 
 class WidgetTest {
+  props: any;
+
   static settings = {
     id: 'test001',
     name: 'Test Widget',
@@ -38,9 +40,31 @@ class WidgetTest {
       }],
     }],
   };
+
+  async render() {
+    const { props } = this;
+    return new Promise((resolve: any) => {
+      const titleNode = document.createElement('div');
+      titleNode.style.fontSize = '16px';
+      titleNode.innerText = 'TestWidget';
+      // eslint-disable-next-line no-restricted-syntax
+      for (const key in props) {
+        if (Object.prototype.hasOwnProperty.call(props, key)) {
+          const value = props[key];
+          const div = document.createElement('div');
+          div.style.fontSize = '12px';
+          div.innerText = `${key} = ${value}`;
+          titleNode.appendChild(div);
+        }
+      }
+      resolve(titleNode);
+    });
+  }
 }
 
 class WidgetProject {
+  props: any;
+
   static settings = {
     id: 'project',
     name: 'Project Switch',
@@ -161,4 +185,4 @@ class WidgetWeather {
   };
 }
 
-export default [WidgetTest, WidgetProject, WidgetRelease, WidgetLabel, WidgetWeather];
+export default [WidgetTest, WidgetProject, WidgetRelease, WidgetLabel];
