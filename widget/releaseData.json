@@ -1,0 +1,23 @@
+{
+  "p1": [
+    "2018/1 Project 1 first release",
+    "2018/5 release v1.1 add some features",
+    "2019/3 release v1.2 fix bugs",
+    "2019/9 release v1.3 add few features",
+    "2020/5 release v1.4 add more features"
+  ],
+  "p2": [
+    "2008/1 Project 2 first release",
+    "2018/5 release v2.1 add some features",
+    "2019/3 release v2.2 fix bugs",
+    "2019/9 release v2.3 add few features",
+    "2020/5 release v2.4 add more features"
+  ],
+  "p3": [
+    "2018/1 Project 3 first release",
+    "2018/5 release 3.1 add some features",
+    "2019/3 release 3.2 fix bugs",
+    "2019/9 release 3.3 add few features",
+    "2020/5 release 3.4 add more features"
+  ]
+}

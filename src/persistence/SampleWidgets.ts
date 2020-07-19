@@ -3,6 +3,7 @@
 const projField = {
   name: 'projName',
   label: 'Project Name',
+  defaultValue: 'p1',
   options: [{
     id: 'p1',
     name: 'Project 1',
@@ -24,6 +25,7 @@ class WidgetTest {
     fields: [projField, {
       name: 'gender',
       label: 'Gender',
+      defaultValue: 'male',
       options: [{
         id: 'male',
         name: 'Male',
@@ -49,6 +51,8 @@ class WidgetProject {
 }
 
 class WidgetRelease {
+  props: any;
+
   static settings = {
     id: 'release',
     name: 'Release',
@@ -56,6 +60,38 @@ class WidgetRelease {
     css: '',
     fields: [projField],
   };
+
+  constructor(props: any) {
+    this.props = props;
+  }
+
+  async render() {
+    // const that = this;
+    const { projName } = this.props;
+    return new Promise((resolve: any) => {
+      fetch('/dist/widget/releaseData.json')
+        .then((response: any) => response.json())
+        .then((releaseData: object) => {
+          const projRelease = releaseData[projName];
+          const titleNode = document.createElement('div');
+          titleNode.style.fontSize = '20px';
+          // titleNode.style.textAlign = 'left';
+          titleNode.innerText = `Release of ${projName}`;
+          const ul = document.createElement('ul');
+          ul.style.fontSize = '16px';
+          ul.style.textAlign = 'left';
+          // ul.innerText = JSON.stringify(projRelease);
+          // insert children
+          projRelease.forEach((line: string) => {
+            const li = document.createElement('li');
+            li.innerText = line;
+            ul.appendChild(li);
+          });
+          titleNode.appendChild(ul);
+          resolve(titleNode);
+        });
+    });
+  }
 }
 
 class WidgetLabel {
