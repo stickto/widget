@@ -1,14 +1,15 @@
 const ins1 = {
+  id: 1,
   widget: 'label',
   fieldValues: {
     text: 'Welcome to your widget gallery!',
     fontSize: '20px',
   },
   layout: {
-    x: 1,
-    y: 1,
-    width: 40,
-    height: 6,
+    x: 10,
+    y: 10,
+    width: 400,
+    height: 60,
   },
 };
 

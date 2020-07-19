@@ -33,7 +33,7 @@ class Content extends React.Component <any, MyState> {
     return (
       <div className="content-panel">
         { widgetConfigs.map((widgetConfig: WidgetConfig) => (
-          <WidgetInsUI widgetConfig={widgetConfig} />
+          <WidgetInsUI key={widgetConfig.id} widgetConfig={widgetConfig} />
         )) }
       </div>
     );

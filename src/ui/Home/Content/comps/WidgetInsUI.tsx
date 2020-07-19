@@ -57,14 +57,11 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
   }
 
   calcLayout = (layout: WidgetLayout) => {
-    function convert(num: number) {
-      return num * GRID_SIZE;
-    }
+    const {
+      x, y, width, height,
+    } = layout;
     return {
-      x: convert(layout.x),
-      y: convert(layout.y),
-      width: convert(layout.width),
-      height: convert(layout.height),
+      x, y, width, height,
     };
   };
 
