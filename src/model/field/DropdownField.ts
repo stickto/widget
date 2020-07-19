@@ -16,8 +16,8 @@ export { Option };
 class DropdownField extends Field {
   options: Array<Option>;
 
-  constructor(name: string, label: string, options: Array<Option>) {
-    super(name, label);
+  constructor(name: string, label: string, defaultValue: string, options: Array<Option>) {
+    super(name, label, defaultValue);
     this.options = options;
   }
 }

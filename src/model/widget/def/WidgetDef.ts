@@ -7,9 +7,9 @@ function initFields(fsArray: Array<any>): Array<Field> {
       const optObjs: Array<Option> = fieldDef.options!.map((option: any) => (
         new Option(option.id, option.name)
       ));
-      return new DropdownField(fieldDef.name, fieldDef.label, optObjs);
+      return new DropdownField(fieldDef.name, fieldDef.label, fieldDef.defaultValue, optObjs);
     }
-    return new Field(fieldDef.name, fieldDef.label);
+    return new Field(fieldDef.name, fieldDef.label, fieldDef.defaultValue);
   });
 }
 

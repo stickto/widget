@@ -71,9 +71,11 @@ class WidgetLabel {
     fields: [projField, {
       name: 'fontSize',
       label: 'Font Size',
+      defaultValue: '20px',
     }, {
       name: 'text',
       label: 'Text',
+      defaultValue: 'Hello Widget',
     }],
   };
 

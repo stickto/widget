@@ -32,6 +32,7 @@ const SettingUI: FC<MyProps> = (props: MyProps) => {
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
           onValuesChange={onValuesChanged}
+          initialValues={fieldValues}
         >
           { fields.map((field: Field) => (
             <Form.Item
@@ -39,7 +40,7 @@ const SettingUI: FC<MyProps> = (props: MyProps) => {
               name={field.name}
               key={field.name}
             >
-              <Input defaultValue={fieldValues[field.name] || ''} />
+              <Input />
             </Form.Item>
           ))}
         </Form>

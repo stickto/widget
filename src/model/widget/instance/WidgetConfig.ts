@@ -1,6 +1,7 @@
 import WidgetDef from '../def/WidgetDef';
 import WidgetLayout from './WidgetLayout';
 import WidgetManager from '../../../WidgetManager';
+import Field from '../../field/Field';
 
 export default class WidgetConfig {
   id: number;
@@ -14,12 +15,20 @@ export default class WidgetConfig {
   constructor(
     id: number,
     widget: WidgetDef,
-    fieldValues: Object = {},
-    layout: WidgetLayout = new WidgetLayout(0, 0, 100, 30),
+    fieldValues: object | undefined = undefined,
+    layout: WidgetLayout = new WidgetLayout(0, 0, 200, 60),
   ) {
     this.id = id;
     this.widget = widget;
-    this.fieldValues = fieldValues;
+    if (!fieldValues) {
+      const fieldValues2 = {};
+      widget.fields!.forEach((field: Field) => {
+        fieldValues2[field.name] = field.defaultValue;
+      });
+      this.fieldValues = fieldValues2;
+    } else {
+      this.fieldValues = fieldValues;
+    }
     this.layout = layout;
   }
 
