@@ -45,5 +45,12 @@
       width: $iconSize;
       cursor: pointer;
     }
+    .def-delete {
+      position: absolute;
+      top: $iconMargin;
+      right: $iconMargin + $iconSize + $iconMargin;
+      width: $iconSize;
+      cursor: pointer;
+    }
   }
 }

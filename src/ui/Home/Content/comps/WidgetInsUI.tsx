@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card, Modal, Input } from 'antd';
+import { Card, Modal, Input, Popconfirm } from 'antd';
 import { Rnd } from 'react-rnd';
-import { SettingOutlined } from '@ant-design/icons';
+import { SettingOutlined, DeleteOutlined } from '@ant-design/icons';
 // import WidgetDef from 'model@/widget/def/WidgetDef';
 import { ACTION } from '../../../../reducers/config';
 import WidgetConfig from '../../../../model/widget/instance/WidgetConfig';
@@ -16,6 +16,7 @@ type MyProps = {
   widgetConfig: WidgetConfig,
   changeLayout?: any,
   changeFieldValues?:any,
+  remove?: any,
 };
 
 type MyState = {
@@ -40,6 +41,14 @@ const mapDispatchToProps = (dispatch: any) => ({
       payload: {
         config,
         fieldValues,
+      },
+    });
+  },
+  remove: (id: number) => {
+    dispatch({
+      type: ACTION.REMOVE,
+      payload: {
+        id,
       },
     });
   },
@@ -124,6 +133,15 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
     changeLayout(widgetConfig, layout);
   };
 
+  onDelete = () => {
+    // eslint-disable-next-line no-restricted-globals
+    // eslint-disable-next-line no-alert
+    if (confirm('Are you sure to remove this widget?')) {
+      const { remove, widgetConfig } = this.props;
+      remove(widgetConfig.id);
+    }
+  };
+
   onShowSetting = () => {
     this.setState({
       showSettingDialog: true,
@@ -179,6 +197,10 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
             <div className="head">
               <img className="def-icon" src={widget.icon} alt={widget.name} />
               <div className="def-name">{widget.name}</div>
+              <DeleteOutlined
+                className="def-delete"
+                onClick={this.onDelete}
+              />
               <SettingOutlined
                 className="def-setting"
                 onClick={this.onShowSetting}

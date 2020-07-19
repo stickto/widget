@@ -25,13 +25,17 @@ type PayloadChangeFieldValues = {
   fieldValues: object,
 };
 
+type PayloadRemove = {
+  id: number,
+};
+
 type MyState = {
   configs: Array<WidgetConfig>
 };
 
 type MyAction = {
   type: ACTION,
-  payload: PayloadCreate | PayloadChangeLayout | PayloadChangeFieldValues,
+  payload: PayloadCreate | PayloadChangeLayout | PayloadChangeFieldValues | PayloadRemove,
 };
 
 const initState = {
@@ -63,6 +67,14 @@ const configReducer = (state: MyState = initState, action: MyAction) => {
       const { config, fieldValues } = action.payload as PayloadChangeFieldValues;
       config.fieldValues = fieldValues;
       const newConfigs = [...state.configs];
+      instanceHelper.save(newConfigs);
+      return {
+        configs: newConfigs,
+      };
+    }
+    case ACTION.REMOVE: {
+      const { id } = action.payload as PayloadRemove;
+      const newConfigs = state.configs.filter((config: WidgetConfig) => config.id !== id);
       instanceHelper.save(newConfigs);
       return {
         configs: newConfigs,

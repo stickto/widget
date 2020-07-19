@@ -71,6 +71,9 @@ class WidgetLabel {
     fields: [projField, {
       name: 'fontSize',
       label: 'Font Size',
+    }, {
+      name: 'text',
+      label: 'Text',
     }],
   };
 

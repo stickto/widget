@@ -19,31 +19,32 @@ const SettingUI: FC<MyProps> = (props: MyProps) => {
     newFieldValues = { ...fieldValues, ...changedValues };
   };
   return (
-
-    <Modal
-      title="Setting"
-      visible={visible}
-      onOk={() => {
-        onOk(newFieldValues);
-      }}
-      onCancel={onCancel}
-    >
-      <Form
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        onValuesChange={onValuesChanged}
+    visible ? (
+      <Modal
+        title="Setting"
+        visible={visible}
+        onOk={() => {
+          onOk(newFieldValues);
+        }}
+        onCancel={onCancel}
       >
-        { fields.map((field: Field) => (
-          <Form.Item
-            label={field.label}
-            name={field.name}
-            key={field.name}
-          >
-            <Input defaultValue={fieldValues[field.name] || ''} />
-          </Form.Item>
-        ))}
-      </Form>
-    </Modal>
+        <Form
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          onValuesChange={onValuesChanged}
+        >
+          { fields.map((field: Field) => (
+            <Form.Item
+              label={field.label}
+              name={field.name}
+              key={field.name}
+            >
+              <Input defaultValue={fieldValues[field.name] || ''} />
+            </Form.Item>
+          ))}
+        </Form>
+      </Modal>
+    ) : <></>
   );
 };
 
