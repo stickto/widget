@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Card } from 'antd';
 import { ACTION } from '../../../reducers/config';
 import WidgetDefUI from './comps/WidgetDefUI';
-import defHelper from '../../../persistence/defHelper';
 import WidgetDef from '../../../model/widget/def/WidgetDef';
 
 import './Toolbox.scss';

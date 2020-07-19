@@ -21,13 +21,13 @@ class WidgetDefUI extends React.Component <MyProps, MyState> {
     };
   }
 
-  onClick() {
+  onClick = () => {
     const { onClick } = this.props;
     if (onClick) {
       const { widget } = this.state;
       onClick(widget);
     }
-  }
+  };
 
   render() {
     const { widget } = this.state;

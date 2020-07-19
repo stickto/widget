@@ -1,42 +1,33 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { connect } from 'react-redux';
 import WidgetInsUI from './comps/WidgetInsUI';
 import instanceHelper from '../../../persistence/instanceHelper';
 import WidgetConfig from '../../../model/widget/instance/WidgetConfig';
 
 import './Content.scss';
 
-type MyState = {
-  widgetConfigs: Array<WidgetConfig>,
+type MyProps = {
+  configs?: Array<WidgetConfig>,
 };
 
-class Content extends React.Component <any, MyState> {
-  // constructor(props: any) {
-  //   super(props);
-  //   this.state = {
-  //     widgets: null,
-  //   };
-  // }
+type MyState = {
+  configs: Array<WidgetConfig>,
+};
 
-  componentDidMount() {
-    const widgetConfigs = instanceHelper.load();
-    this.setState({
-      widgetConfigs,
-    });
-  }
+const mapStateToProps = (state: any) => {
+  const { configs } = state.config;
+  return { configs };
+};
 
-  render() {
-    if (!this.state) {
-      return <div />;
-    }
-    const { widgetConfigs } = this.state;
-    return (
-      <div className="content-panel">
-        { widgetConfigs.map((widgetConfig: WidgetConfig) => (
-          <WidgetInsUI key={widgetConfig.id} widgetConfig={widgetConfig} />
-        )) }
-      </div>
-    );
-  }
-}
+const Content: FC<MyProps> = (props: MyProps) => {
+  const { configs } = props;
+  return (
+    <div className="content-panel">
+      { configs!.map((widgetConfig: WidgetConfig) => (
+        <WidgetInsUI key={widgetConfig.id} widgetConfig={widgetConfig} />
+      )) }
+    </div>
+  );
+};
 
-export default Content;
+export default connect(mapStateToProps)(Content);
