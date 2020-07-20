@@ -8,7 +8,6 @@ import Widget from '../../../../model/widget/instance/Widget';
 import './WidgetUI.scss';
 import WidgetLayout from '../../../../model/widget/instance/WidgetLayout';
 import SettingUI from './SettingUI';
-import WidgetUICore from '../../../comps/WidgetUICore';
 
 type MyProps = {
   widget: Widget,
