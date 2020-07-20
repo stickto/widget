@@ -1,19 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card, Modal, message } from 'antd';
-import { Rnd } from 'react-rnd';
-import { SettingOutlined, DeleteOutlined } from '@ant-design/icons';
-import { ACTION } from '../../../../reducers/dashboardcore/WidgetAction';
-import Widget from '../../../../model/widget/instance/Widget';
+import { ACTION } from '../../reducers/dashboardcore/WidgetAction';
+import Widget from '../../model/widget/instance/Widget';
 import './WidgetUI.scss';
-import WidgetLayout from '../../../../model/widget/instance/WidgetLayout';
-import SettingUI from './SettingUI';
+import WidgetLayout from '../../model/widget/instance/WidgetLayout';
 
 type MyProps = {
   widget: Widget,
-  changeLayout?: any,
-  changeFieldValues?:any,
-  remove?: any,
   changeFieldValuesAll?: any,
 };
 
