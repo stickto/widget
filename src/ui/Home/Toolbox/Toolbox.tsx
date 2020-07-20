@@ -58,7 +58,7 @@ class Toolbox extends React.Component <MyProps, MyState> {
     const { widgets } = this.state;
     const { collapsed, createInstance } = this.props;
     return (
-      collapsed ? <div style={{ transform: 'rotate(-90deg) translate(-40px, -10px)' }}>Widgets</div> : (
+      collapsed ? <div style={{ transform: 'rotate(-90deg) translate(-40px, -0px)' }}>Widgets</div> : (
         <Card
           title="Widgets"
           bordered={false}

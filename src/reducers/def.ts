@@ -4,9 +4,6 @@ import defHelper from '../persistence/defHelper';
 
 export enum ACTION {
   CREATE = 'create',
-  REMOVE = 'remove',
-  FIELD_VALUE_CHANGED = 'fieldValueChanged',
-  LAYOUT_CHANGED = 'layoutChanged',
 }
 
 type PayloadCreate = {

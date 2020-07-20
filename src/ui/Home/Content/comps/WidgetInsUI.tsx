@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card, Modal, Input, Popconfirm } from 'antd';
+import { Card, Modal, Input, Popconfirm, message } from 'antd';
 import { Rnd } from 'react-rnd';
 import { SettingOutlined, DeleteOutlined } from '@ant-design/icons';
 // import WidgetDef from 'model@/widget/def/WidgetDef';
@@ -145,6 +145,10 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
     if (name === 'fieldValueChanged') {
       const { changeFieldValuesAll } = this.props;
       changeFieldValuesAll(data);
+      const { projName } = data;
+      if (projName) {
+        message.success(`Project switched to ${projName} globally.`);
+      }
     } else {
       throw new Error(`unsupported event ${name}`);
     }
@@ -190,10 +194,19 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
   onDelete = () => {
     // eslint-disable-next-line no-restricted-globals
     // eslint-disable-next-line no-alert
-    if (confirm('Are you sure to remove this widget?')) {
-      const { remove, widgetConfig } = this.props;
-      remove(widgetConfig.id);
-    }
+    // if (confirm('Are you sure to remove this widget?')) {
+    //   const { remove, widgetConfig } = this.props;
+    //   remove(widgetConfig.id);
+    // }
+    Modal.confirm({
+      title: 'Are you sure to remove this widget?',
+      icon: <DeleteOutlined />,
+      onOk: () => {
+        const { remove, widgetConfig } = this.props;
+        remove(widgetConfig.id);
+        message.success('Widget removed');
+      },
+    });
   };
 
   onShowSetting = () => {
