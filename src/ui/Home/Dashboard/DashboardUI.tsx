@@ -26,7 +26,7 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => ({
   create: (name: string) => {
     dispatch({
-      type: ACTION.CREATE,
+      type: ACTION.DASHBOARD_CREATE,
       payload: {
         name,
       },
@@ -34,7 +34,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   },
   rename: (dashboard: Dashboard, name: string) => {
     dispatch({
-      type: ACTION.RENAME,
+      type: ACTION.DASHBOARD_RENAME,
       payload: {
         dashboard,
         name,
@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   },
   remove: (id: number) => {
     dispatch({
-      type: ACTION.REMOVE,
+      type: ACTION.DASHBOARD_REMOVE,
       payload: {
         id,
       },
@@ -51,7 +51,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   },
   switchTo: (id: number) => {
     dispatch({
-      type: ACTION.SWITCH,
+      type: ACTION.DASHBOARD_SWITCH,
       payload: {
         id,
       },

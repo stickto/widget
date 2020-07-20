@@ -6,11 +6,11 @@ import instanceHelper from '../persistence/instanceHelper';
 import WidgetLayout from '../model/widget/instance/WidgetLayout';
 
 export enum ACTION {
-  CREATE = 'config_create',
-  REMOVE = 'config_remove',
-  FIELD_VALUE_CHANGED = 'config_fieldValueChanged',
-  FIELD_VALUE_CHANGED_ALL = 'config_fieldValueChangedAll', // change field values of all widgets, this is for event
-  LAYOUT_CHANGED = 'config_layoutChanged',
+  WIDGET_CREATE = 'config_create',
+  WIDGET_REMOVE = 'config_remove',
+  WIDGET_FIELD_VALUE_CHANGED = 'config_fieldValueChanged',
+  WIDGET_FIELD_VALUE_CHANGED_ALL = 'config_fieldValueChangedAll', // change field values of all widgets, this is for event
+  WIDGET_LAYOUT_CHANGED = 'config_layoutChanged',
   DASHBOARD_SWITCH = 'dashboard_switch', // TODO: same as switch in dashboard.ts, to be refactored
 }
 
@@ -60,7 +60,7 @@ const initState = (() => {
 
 const configReducer = (state: MyState = initState, action: MyAction) => {
   switch (action.type) {
-    case ACTION.CREATE: {
+    case ACTION.WIDGET_CREATE: {
       const { widget } = action.payload as PayloadCreate;
       const widgetConfig = new WidgetConfig(instanceHelper.getNextId(state.dashboardId), widget);
       const newConfigs = [...state.configs, widgetConfig];
@@ -71,7 +71,7 @@ const configReducer = (state: MyState = initState, action: MyAction) => {
         dashboardId: state.dashboardId,
       };
     }
-    case ACTION.LAYOUT_CHANGED: {
+    case ACTION.WIDGET_LAYOUT_CHANGED: {
       const { config, layout } = action.payload as PayloadChangeLayout;
       config.layout = layout;
       const newConfigs = [...state.configs];
@@ -81,7 +81,7 @@ const configReducer = (state: MyState = initState, action: MyAction) => {
         dashboardId: state.dashboardId,
       };
     }
-    case ACTION.FIELD_VALUE_CHANGED: {
+    case ACTION.WIDGET_FIELD_VALUE_CHANGED: {
       const { config, fieldValues } = action.payload as PayloadChangeFieldValues;
       config.fieldValues = fieldValues;
       const newConfigs = [...state.configs];
@@ -95,7 +95,7 @@ const configReducer = (state: MyState = initState, action: MyAction) => {
         dashboardId: state.dashboardId,
       };
     }
-    case ACTION.REMOVE: {
+    case ACTION.WIDGET_REMOVE: {
       const { id } = action.payload as PayloadRemove;
       const newConfigs = state.configs.filter((config: WidgetConfig) => config.id !== id);
       instanceHelper.save(state.dashboardId, newConfigs);
@@ -104,7 +104,7 @@ const configReducer = (state: MyState = initState, action: MyAction) => {
         dashboardId: state.dashboardId,
       };
     }
-    case ACTION.FIELD_VALUE_CHANGED_ALL: {
+    case ACTION.WIDGET_FIELD_VALUE_CHANGED_ALL: {
       const { fieldValues } = action.payload as PayloadChangeFieldValuesAll;
       const newConfigs = state.configs.map((config: WidgetConfig) => {
         // eslint-disable-next-line no-param-reassign

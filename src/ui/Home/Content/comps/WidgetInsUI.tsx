@@ -1,15 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card, Modal, Input, Popconfirm, message } from 'antd';
+import { Card, Modal, message } from 'antd';
 import { Rnd } from 'react-rnd';
 import { SettingOutlined, DeleteOutlined } from '@ant-design/icons';
 // import WidgetDef from 'model@/widget/def/WidgetDef';
 import { ACTION } from '../../../../reducers/config';
 import WidgetConfig from '../../../../model/widget/instance/WidgetConfig';
-// import WidgetDef from '../../../../model/widget/def/WidgetDef';
 import './WidgetInsUI.scss';
 import WidgetLayout from '../../../../model/widget/instance/WidgetLayout';
-import Field from '../../../../model/field/Field';
 import SettingUI from './SettingUI';
 
 type MyProps = {
@@ -29,7 +27,7 @@ type MyState = {
 const mapDispatchToProps = (dispatch: any) => ({
   changeLayout: (config: WidgetConfig, layout: WidgetLayout) => {
     dispatch({
-      type: ACTION.LAYOUT_CHANGED,
+      type: ACTION.WIDGET_LAYOUT_CHANGED,
       payload: {
         config,
         layout,
@@ -38,7 +36,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   },
   changeFieldValues: (config: WidgetConfig, fieldValues: object) => {
     dispatch({
-      type: ACTION.FIELD_VALUE_CHANGED,
+      type: ACTION.WIDGET_FIELD_VALUE_CHANGED,
       payload: {
         config,
         fieldValues,
@@ -47,7 +45,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   },
   remove: (id: number) => {
     dispatch({
-      type: ACTION.REMOVE,
+      type: ACTION.WIDGET_REMOVE,
       payload: {
         id,
       },
@@ -55,7 +53,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   },
   changeFieldValuesAll: (fieldValues: object) => {
     dispatch({
-      type: ACTION.FIELD_VALUE_CHANGED_ALL,
+      type: ACTION.WIDGET_FIELD_VALUE_CHANGED_ALL,
       payload: {
         fieldValues,
       },

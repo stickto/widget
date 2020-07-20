@@ -25,7 +25,7 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => ({
   createInstance: (widget: WidgetDef) => {
     dispatch({
-      type: ACTION.CREATE,
+      type: ACTION.WIDGET_CREATE,
       payload: {
         widget,
       },
