@@ -1,4 +1,5 @@
 /* eslint-disable no-case-declarations */
+import dashboardHelper from '../persistence/dashboardHelper';
 import Widget from '../model/widget/def/WidgetDef';
 import WidgetConfig from '../model/widget/instance/WidgetConfig';
 import instanceHelper from '../persistence/instanceHelper';
@@ -10,6 +11,7 @@ export enum ACTION {
   FIELD_VALUE_CHANGED = 'config_fieldValueChanged',
   FIELD_VALUE_CHANGED_ALL = 'config_fieldValueChangedAll', // change field values of all widgets, this is for event
   LAYOUT_CHANGED = 'config_layoutChanged',
+  DASHBOARD_SWITH = 'dashboard_switch', // TODO: same as switch in dashboard.ts, to be refactored
 }
 
 type PayloadCreate = {
@@ -34,38 +36,48 @@ type PayloadRemove = {
   id: number,
 };
 
+type PayloadDashboardSwitch = {
+  id: number,
+};
+
 type MyState = {
-  configs: Array<WidgetConfig>
+  configs: Array<WidgetConfig>,
+  dashboardId: number,
 };
 
 type MyAction = {
   type: ACTION,
-  payload: PayloadCreate | PayloadChangeLayout | PayloadChangeFieldValues | PayloadRemove,
+  payload: PayloadCreate | PayloadChangeLayout | PayloadChangeFieldValues | PayloadRemove | PayloadDashboardSwitch,
 };
 
-const initState = {
-  configs: instanceHelper.load(),
-};
+const initState = (() => {
+  const dashboards = dashboardHelper.load();
+  const dashboardId = dashboards[0].id;
+  const configs = instanceHelper.load(dashboardId);
+  return { configs, dashboardId };
+})();
 
 const configReducer = (state: MyState = initState, action: MyAction) => {
   switch (action.type) {
     case ACTION.CREATE: {
       const { widget } = action.payload as PayloadCreate;
-      const widgetConfig = new WidgetConfig(instanceHelper.getNextId(), widget);
+      const widgetConfig = new WidgetConfig(instanceHelper.getNextId(state.dashboardId), widget);
       const newConfigs = [...state.configs, widgetConfig];
       // save it
-      instanceHelper.save(newConfigs);
+      instanceHelper.save(state.dashboardId, newConfigs);
       return {
         configs: newConfigs,
+        dashboardId: state.dashboardId,
       };
     }
     case ACTION.LAYOUT_CHANGED: {
       const { config, layout } = action.payload as PayloadChangeLayout;
       config.layout = layout;
       const newConfigs = [...state.configs];
-      instanceHelper.save(newConfigs);
+      instanceHelper.save(state.dashboardId, newConfigs);
       return {
         configs: newConfigs,
+        dashboardId: state.dashboardId,
       };
     }
     case ACTION.FIELD_VALUE_CHANGED: {
@@ -76,17 +88,19 @@ const configReducer = (state: MyState = initState, action: MyAction) => {
       // reconstruct the config so that ui can be updated
       const newCfg = WidgetConfig.fromObject(config.toObject());
       newConfigs[cfgIdx] = newCfg!;
-      instanceHelper.save(newConfigs);
+      instanceHelper.save(state.dashboardId, newConfigs);
       return {
         configs: newConfigs,
+        dashboardId: state.dashboardId,
       };
     }
     case ACTION.REMOVE: {
       const { id } = action.payload as PayloadRemove;
       const newConfigs = state.configs.filter((config: WidgetConfig) => config.id !== id);
-      instanceHelper.save(newConfigs);
+      instanceHelper.save(state.dashboardId, newConfigs);
       return {
         configs: newConfigs,
+        dashboardId: state.dashboardId,
       };
     }
     case ACTION.FIELD_VALUE_CHANGED_ALL: {
@@ -97,9 +111,19 @@ const configReducer = (state: MyState = initState, action: MyAction) => {
         const newCfg = WidgetConfig.fromObject(config.toObject());
         return newCfg;
       });
-      instanceHelper.save(newConfigs as Array<WidgetConfig>);
+      instanceHelper.save(state.dashboardId, newConfigs as Array<WidgetConfig>);
       return {
         configs: newConfigs,
+        dashboardId: state.dashboardId,
+      };
+    }
+    case ACTION.DASHBOARD_SWITH: {
+      const { id } = action.payload as PayloadDashboardSwitch;
+      const dashboardId = id;
+      const configs = instanceHelper.load(dashboardId);
+      return {
+        configs,
+        dashboardId,
       };
     }
     default:
