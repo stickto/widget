@@ -28,10 +28,10 @@ const reducers = (state: DashboardState, action: WidgetAction) => {
       const { widget, fieldValues } = action.payload as PayloadChangeFieldValues;
       widget.fieldValues = fieldValues;
       const widgets = [...state.widgets];
-      // const idx = widgets.indexOf(widget);
+      const idx = widgets.indexOf(widget);
       // reconstruct the config so that ui can be updated
       // const newWidget = Widget.fromObject(widget.toObject());
-      // widgets[idx] = newWidget!;
+      widgets[idx] = widget.clone();
       instanceHelper.save(state.active.id, widgets);
       return { ...state, widgets };
     }

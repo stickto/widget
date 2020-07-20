@@ -15,12 +15,10 @@ type MyProps = {
   changeLayout?: any,
   changeFieldValues?:any,
   remove?: any,
-  changeFieldValuesAll?: any,
 };
 
 type MyState = {
   widget: Widget,
-  widgetIns: any,
   showSettingDialog: boolean,
 };
 
@@ -51,14 +49,6 @@ const mapDispatchToProps = (dispatch: any) => ({
       },
     });
   },
-  changeFieldValuesAll: (fieldValues: object) => {
-    dispatch({
-      type: ACTION.WIDGET_FIELD_VALUE_CHANGED_ALL,
-      payload: {
-        fieldValues,
-      },
-    });
-  },
 });
 
 const GRID_SIZE = 10;
@@ -72,27 +62,14 @@ function alighToGrid(layoutObj: any) {
   });
 }
 
-async function renderIns(container: HTMLElement, widgetIns: any, mounted: boolean) {
-  const ele = await widgetIns.render() as HTMLElement;
-  container.appendChild(ele);
-  if (!mounted && widgetIns.didMount) {
-    widgetIns.didMount();
-  }
-}
-
 class WidgetUI extends React.Component <MyProps, MyState> {
   container: HTMLElement | null = null;
 
   constructor(props: MyProps) {
     super(props);
     const { widget } = this.props;
-    const WidgetClz = widget.def.clz!;
-    const widgetIns = new WidgetClz();
-    widgetIns.props = widget.fieldValues;
-    widgetIns.emitEvent = this.emitEvent;
     this.state = {
       widget,
-      widgetIns,
       showSettingDialog: false,
     };
   }
@@ -106,39 +83,6 @@ class WidgetUI extends React.Component <MyProps, MyState> {
     }
     return null;
   }
-
-  componentDidMount() {
-    const { widgetIns } = this.state;
-    renderIns(this.container!, widgetIns, false);
-  }
-
-  componentDidUpdate() {
-    const { widget, widgetIns } = this.state;
-    widgetIns.props = widget.fieldValues;
-    const container = this.container!;
-    container.removeChild(container.childNodes[0]);
-    renderIns(container, widgetIns, true);
-  }
-
-  componentWillUnmount() {
-    const { widgetIns } = this.state;
-    if (widgetIns.willUnmount) {
-      widgetIns.willUnmount();
-    }
-  }
-
-  emitEvent = (name: string, data: any) => {
-    if (name === 'fieldValueChanged') {
-      const { changeFieldValuesAll } = this.props;
-      changeFieldValuesAll(data);
-      const { projName } = data;
-      if (projName) {
-        message.success(`Project switched to ${projName} globally.`);
-      }
-    } else {
-      throw new Error(`unsupported event ${name}`);
-    }
-  };
 
   onDragStop = (e:any, d: any) => {
     const { widget, changeLayout } = this.props;
@@ -161,7 +105,6 @@ class WidgetUI extends React.Component <MyProps, MyState> {
       y: position.y,
     };
     alighToGrid(layoutObj);
-    // console.log(e, ref, position);
     console.log(layoutObj);
     const layout = new WidgetLayout(layoutObj.x, layoutObj.y, layoutObj.width, layoutObj.height);
     const { widget, changeLayout } = this.props;
@@ -203,7 +146,6 @@ class WidgetUI extends React.Component <MyProps, MyState> {
   render() {
     const { widget, showSettingDialog } = this.state;
     const { def, layout } = widget;
-    // console.log(widgetIns.render());
     const style = {
       x: layout.x,
       y: layout.y,
@@ -248,7 +190,7 @@ class WidgetUI extends React.Component <MyProps, MyState> {
                 onClick={this.onShowSetting}
               />
             </div>
-            <div ref={(node) => { this.container = node; }} />
+            <WidgetUICore widget={widget} />
           </Card>
         </Rnd>
         <SettingUI

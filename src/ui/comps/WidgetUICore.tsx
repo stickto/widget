@@ -108,7 +108,6 @@ class WidgetUI extends React.Component <MyProps, MyState> {
       <>
         <Card
           size="small"
-          className="widget-ins-ui"
           style={{
             position: 'absolute', left: 0, top: 0, bottom: 0, right: 0,
           }}
