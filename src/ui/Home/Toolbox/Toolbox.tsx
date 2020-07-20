@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card } from 'antd';
-import { ACTION } from '../../../reducers/config';
+import { ACTION } from '../../../reducers/dashboardcore/WidgetAction';
 import WidgetDefUI from './comps/WidgetDefUI';
 import WidgetDef from '../../../model/widget/def/WidgetDef';
 
@@ -23,11 +23,11 @@ const mapStateToProps = (state: any) => {
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
-  createInstance: (widget: WidgetDef) => {
+  createInstance: (def: WidgetDef) => {
     dispatch({
       type: ACTION.WIDGET_CREATE,
       payload: {
-        widget,
+        def,
       },
     });
   },
@@ -68,7 +68,7 @@ class Toolbox extends React.Component <MyProps, MyState> {
             <WidgetDefUI
               key={widget.id}
               widget={widget}
-              onClick={(w: WidgetDef) => { createInstance(w); }}
+              onClick={(def: WidgetDef) => { createInstance(def); }}
             />
           )) }
         </Card>

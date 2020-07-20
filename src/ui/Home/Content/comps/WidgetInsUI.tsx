@@ -25,20 +25,20 @@ type MyState = {
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
-  changeLayout: (config: WidgetConfig, layout: WidgetLayout) => {
+  changeLayout: (widget: WidgetConfig, layout: WidgetLayout) => {
     dispatch({
       type: ACTION.WIDGET_LAYOUT_CHANGED,
       payload: {
-        config,
+        widget,
         layout,
       },
     });
   },
-  changeFieldValues: (config: WidgetConfig, fieldValues: object) => {
+  changeFieldValues: (widget: WidgetConfig, fieldValues: object) => {
     dispatch({
       type: ACTION.WIDGET_FIELD_VALUE_CHANGED,
       payload: {
-        config,
+        widget,
         fieldValues,
       },
     });

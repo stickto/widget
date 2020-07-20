@@ -18,6 +18,7 @@ const dashboardReducer = (state: DashboardState, action: DashboardAction) => {
       const widgets = instanceHelper.load(dashboard.id);
       return {
         ...state,
+        dashboards,
         active: dashboard,
         widgets,
       };

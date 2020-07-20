@@ -5,14 +5,16 @@ import DashboardAction from './dashboardcore/DashboardAction';
 import WidgetAction from './dashboardcore/WidgetAction';
 import dashboardReducers from './dashboardcore/dashboardReducers';
 import widgetReducers from './dashboardcore/widgetReducers';
+import instanceHelper from '../persistence/instanceHelper';
 
 const initState = (() => {
   const dashboards = dashboardHelper.load();
   const active = dashboards[0];
+  const widgets = instanceHelper.load(active.id);
   return {
     dashboards,
     active,
-    widgets: [],
+    widgets,
   };
 })();
 
@@ -23,11 +25,11 @@ const reducer = (state: DashboardState = initState, action: DashboardAction | Wi
   }
 
   const newState2 = widgetReducers(state, action as WidgetAction);
-  if (newState !== false) {
+  if (newState2 !== false) {
     return newState2 as DashboardState;
   }
 
-  return newState;
+  return state;
 };
 
 export default reducer;
