@@ -3,7 +3,7 @@ import WidgetLayout from './WidgetLayout';
 import WidgetManager from '../../../WidgetManager';
 import Field from '../../field/Field';
 
-export default class WidgetConfig {
+export default class Widget {
   id: number;
 
   def: WidgetDef;
@@ -32,7 +32,7 @@ export default class WidgetConfig {
     this.layout = layout;
   }
 
-  static fromObject(widgetObj: any): WidgetConfig | null {
+  static fromObject(widgetObj: any): Widget | null {
     const defId = widgetObj.def;
     const allDefs = WidgetManager.getAllWidgets();
     const def = allDefs.find((d: WidgetDef) => d.id === defId);
@@ -43,7 +43,7 @@ export default class WidgetConfig {
     const fieldValues = { ...widgetObj.fieldValues };
     const layout = new WidgetLayout(widgetObj.layout.x, widgetObj.layout.y,
       widgetObj.layout.width, widgetObj.layout.height);
-    return new WidgetConfig(widgetObj.id, def, fieldValues, layout);
+    return new Widget(widgetObj.id, def, fieldValues, layout);
   }
 
   toObject(): object {

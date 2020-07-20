@@ -4,13 +4,13 @@ import { Card, Modal, message } from 'antd';
 import { Rnd } from 'react-rnd';
 import { SettingOutlined, DeleteOutlined } from '@ant-design/icons';
 import { ACTION } from '../../../../reducers/dashboardcore/WidgetAction';
-import WidgetConfig from '../../../../model/widget/instance/WidgetConfig';
+import Widget from '../../../../model/widget/instance/WidgetConfig';
 import './WidgetInsUI.scss';
 import WidgetLayout from '../../../../model/widget/instance/WidgetLayout';
 import SettingUI from './SettingUI';
 
 type MyProps = {
-  widget: WidgetConfig,
+  widget: Widget,
   changeLayout?: any,
   changeFieldValues?:any,
   remove?: any,
@@ -18,13 +18,13 @@ type MyProps = {
 };
 
 type MyState = {
-  widget: WidgetConfig,
+  widget: Widget,
   widgetIns: any,
   showSettingDialog: boolean,
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
-  changeLayout: (widget: WidgetConfig, layout: WidgetLayout) => {
+  changeLayout: (widget: Widget, layout: WidgetLayout) => {
     dispatch({
       type: ACTION.WIDGET_LAYOUT_CHANGED,
       payload: {
@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch: any) => ({
       },
     });
   },
-  changeFieldValues: (widget: WidgetConfig, fieldValues: object) => {
+  changeFieldValues: (widget: Widget, fieldValues: object) => {
     dispatch({
       type: ACTION.WIDGET_FIELD_VALUE_CHANGED,
       payload: {
@@ -177,12 +177,6 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
   };
 
   onDelete = () => {
-    // eslint-disable-next-line no-restricted-globals
-    // eslint-disable-next-line no-alert
-    // if (confirm('Are you sure to remove this widget?')) {
-    //   const { remove, widgetConfig } = this.props;
-    //   remove(widgetConfig.id);
-    // }
     Modal.confirm({
       title: 'Are you sure to remove this widget?',
       icon: <DeleteOutlined />,

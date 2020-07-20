@@ -1,4 +1,4 @@
-import WidgetConfig from '../../model/widget/instance/WidgetConfig';
+import Widget from '../../model/widget/instance/WidgetConfig';
 import instanceHelper from '../../persistence/instanceHelper';
 import WidgetAction, {
   ACTION, PayloadCreate, PayloadChangeLayout, PayloadChangeFieldValues, PayloadChangeFieldValuesAll,
@@ -10,7 +10,7 @@ const reducers = (state: DashboardState, action: WidgetAction) => {
   switch (action.type) {
     case ACTION.WIDGET_CREATE: {
       const { def } = action.payload as PayloadCreate;
-      const widget = new WidgetConfig(instanceHelper.getNextId(state.active.id), def);
+      const widget = new Widget(instanceHelper.getNextId(state.active.id), def);
       const widgets = [...state.widgets, widget];
       // save it
       instanceHelper.save(state.active.id, widgets);
@@ -30,26 +30,26 @@ const reducers = (state: DashboardState, action: WidgetAction) => {
       const widgets = [...state.widgets];
       const idx = widgets.indexOf(widget);
       // reconstruct the config so that ui can be updated
-      const newWidget = WidgetConfig.fromObject(widget.toObject());
+      const newWidget = Widget.fromObject(widget.toObject());
       widgets[idx] = newWidget!;
       instanceHelper.save(state.active.id, widgets);
       return { ...state, widgets };
     }
     case ACTION.WIDGET_REMOVE: {
       const { id } = action.payload as PayloadRemove;
-      const widgets = state.widgets.filter((w: WidgetConfig) => w.id !== id);
+      const widgets = state.widgets.filter((w: Widget) => w.id !== id);
       instanceHelper.save(state.active.id, widgets);
       return { ...state, widgets };
     }
     case ACTION.WIDGET_FIELD_VALUE_CHANGED_ALL: {
       const { fieldValues } = action.payload as PayloadChangeFieldValuesAll;
-      const widgets = state.widgets.map((w: WidgetConfig) => {
+      const widgets = state.widgets.map((w: Widget) => {
         // eslint-disable-next-line no-param-reassign
         w.fieldValues = { ...w.fieldValues, ...fieldValues };
-        const nw = WidgetConfig.fromObject(w.toObject());
+        const nw = Widget.fromObject(w.toObject());
         return nw;
       });
-      instanceHelper.save(state.active.id, widgets as Array<WidgetConfig>);
+      instanceHelper.save(state.active.id, widgets as Array<Widget>);
       return { ...state, widgets };
     }
     default:

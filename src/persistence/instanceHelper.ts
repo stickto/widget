@@ -1,13 +1,13 @@
 // import sampleInstances from './SampleInstances';
-import WidgetConfig from '../model/widget/instance/WidgetConfig';
+import Widget from '../model/widget/instance/WidgetConfig';
 
 const KEY = '_DASHBOARD_%_';
 
-function parseConfigObjs(configObjs: Array<object>): Array<WidgetConfig> {
-  const allInstances: Array<WidgetConfig> = [];
+function parseConfigObjs(configObjs: Array<object>): Array<Widget> {
+  const allInstances: Array<Widget> = [];
   configObjs.forEach((insObj: any) => {
-    const w = WidgetConfig.fromObject(insObj);
-    if (w instanceof WidgetConfig) {
+    const w = Widget.fromObject(insObj);
+    if (w instanceof Widget) {
       allInstances.push(w);
     }
   });
@@ -18,7 +18,7 @@ function parseConfigObjs(configObjs: Array<object>): Array<WidgetConfig> {
 //   return parseConfigObjs(sampleInstances);
 // }
 
-function loadFromLocalStorage(dashboardId: number): Array<WidgetConfig> | undefined {
+function loadFromLocalStorage(dashboardId: number): Array<Widget> | undefined {
   const key = KEY.replace('%', `${dashboardId}`);
   const configStr = localStorage.getItem(key);
   if (configStr) {
@@ -28,15 +28,15 @@ function loadFromLocalStorage(dashboardId: number): Array<WidgetConfig> | undefi
   return undefined;
 }
 
-function writeToLocalStorage(dashboardId: number, configs: Array<WidgetConfig>) {
+function writeToLocalStorage(dashboardId: number, configs: Array<Widget>) {
   const key = KEY.replace('%', `${dashboardId}`);
-  const configObjs = configs.map((config: WidgetConfig) => config.toObject());
+  const configObjs = configs.map((config: Widget) => config.toObject());
   const configStr = JSON.stringify(configObjs);
   localStorage.setItem(key, configStr);
 }
 
 export default {
-  load(dashboardId: number): Array<WidgetConfig> {
+  load(dashboardId: number): Array<Widget> {
     let configs = loadFromLocalStorage(dashboardId);
     if (!configs) {
       configs = [];
@@ -46,11 +46,11 @@ export default {
   },
   getNextId(dashboardId:number): number {
     const maxId = this.load(dashboardId).reduce(
-      (prev: number, cur: WidgetConfig) => Math.max(cur.id, prev), -1,
+      (prev: number, cur: Widget) => Math.max(cur.id, prev), -1,
     );
     return maxId + 1;
   },
-  save(dashboardId: number, configs: Array<WidgetConfig>) {
+  save(dashboardId: number, configs: Array<Widget>) {
     writeToLocalStorage(dashboardId, configs);
   },
 };

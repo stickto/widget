@@ -2,16 +2,16 @@ import React, { FC } from 'react';
 import { connect } from 'react-redux';
 import WidgetInsUI from './comps/WidgetInsUI';
 // import instanceHelper from '../../../persistence/instanceHelper';
-import WidgetConfig from '../../../model/widget/instance/WidgetConfig';
+import Widget from '../../../model/widget/instance/WidgetConfig';
 
 import './Content.scss';
 
 type MyProps = {
-  widgets?: Array<WidgetConfig>,
+  widgets?: Array<Widget>,
 };
 
 type MyState = {
-  widgets: Array<WidgetConfig>,
+  widgets: Array<Widget>,
 };
 
 const mapStateToProps = (state: any) => {
@@ -23,7 +23,7 @@ const Content: FC<MyProps> = (props: MyProps) => {
   const { widgets } = props;
   return (
     <div className="content-panel">
-      { widgets!.map((widget: WidgetConfig) => (
+      { widgets!.map((widget: Widget) => (
         <WidgetInsUI key={widget.id} widget={widget} />
       )) }
     </div>
