@@ -2,19 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Card } from 'antd';
 import { ACTION } from '../../../reducers/dashboardcore/WidgetAction';
-import WidgetDefUI from './comps/WidgetDefUI';
-import WidgetDef from '../../../model/widget/def/WidgetDef';
+import DefUI from './comps/DefUI';
+import Def from '../../../model/widget/def/Def';
 
 import './Toolbox.scss';
 
 type MyProps = {
-  widgets?: Array<WidgetDef>,
+  widgets?: Array<Def>,
   collapsed: boolean,
   createInstance?: any,
 };
 
 type MyState = {
-  widgets: Array<WidgetDef>,
+  widgets: Array<Def>,
 };
 
 const mapStateToProps = (state: any) => {
@@ -23,7 +23,7 @@ const mapStateToProps = (state: any) => {
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
-  createInstance: (def: WidgetDef) => {
+  createInstance: (def: Def) => {
     dispatch({
       type: ACTION.WIDGET_CREATE,
       payload: {
@@ -40,7 +40,7 @@ class Toolbox extends React.Component <MyProps, MyState> {
     const { widgets } = this.props;
     // const w2 = widgets as Array<WidgetDef>;
     this.state = {
-      widgets: widgets as Array<WidgetDef>,
+      widgets: widgets as Array<Def>,
     };
   }
 
@@ -64,11 +64,11 @@ class Toolbox extends React.Component <MyProps, MyState> {
           bordered={false}
           className="toolbox"
         >
-          { widgets.map((widget: WidgetDef) => (
-            <WidgetDefUI
+          { widgets.map((widget: Def) => (
+            <DefUI
               key={widget.id}
               widget={widget}
-              onClick={(def: WidgetDef) => { createInstance(def); }}
+              onClick={(def: Def) => { createInstance(def); }}
             />
           )) }
         </Card>

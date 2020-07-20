@@ -4,8 +4,8 @@ import { Card, Modal, message } from 'antd';
 import { Rnd } from 'react-rnd';
 import { SettingOutlined, DeleteOutlined } from '@ant-design/icons';
 import { ACTION } from '../../../../reducers/dashboardcore/WidgetAction';
-import Widget from '../../../../model/widget/instance/WidgetConfig';
-import './WidgetInsUI.scss';
+import Widget from '../../../../model/widget/instance/Widget';
+import './WidgetUI.scss';
 import WidgetLayout from '../../../../model/widget/instance/WidgetLayout';
 import SettingUI from './SettingUI';
 
@@ -79,7 +79,7 @@ async function renderIns(container: HTMLElement, widgetIns: any, mounted: boolea
   }
 }
 
-class WidgetInsUI extends React.Component <MyProps, MyState> {
+class WidgetUI extends React.Component <MyProps, MyState> {
   container: HTMLElement | null = null;
 
   constructor(props: MyProps) {
@@ -266,4 +266,4 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
   }
 }
 
-export default connect(undefined, mapDispatchToProps)(WidgetInsUI);
+export default connect(undefined, mapDispatchToProps)(WidgetUI);

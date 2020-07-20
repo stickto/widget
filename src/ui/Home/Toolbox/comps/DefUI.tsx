@@ -1,19 +1,17 @@
 import React from 'react';
-// import WidgetDef from 'model@/widget/def/WidgetDef';
-import WidgetDef from '../../../../model/widget/def/WidgetDef';
-// import WidgetConfig from 'model@/widget/instance/WidgetConfig';
-import './WidgetDefUI.scss';
+import Def from '../../../../model/widget/def/Def';
+import './DefUI.scss';
 
 type MyProps = {
-  widget: WidgetDef,
+  widget: Def,
   onClick?: any,
 };
 
 type MyState = {
-  widget: WidgetDef,
+  widget: Def,
 };
 
-class WidgetDefUI extends React.Component <MyProps, MyState> {
+class DefUI extends React.Component <MyProps, MyState> {
   constructor(props: MyProps) {
     super(props);
     this.state = {
@@ -45,4 +43,4 @@ class WidgetDefUI extends React.Component <MyProps, MyState> {
   }
 }
 
-export default WidgetDefUI;
+export default DefUI;

@@ -1,5 +1,5 @@
-import WidgetDef from '../../model/widget/def/WidgetDef';
-import Widget from '../../model/widget/instance/WidgetConfig';
+import Def from '../../model/widget/def/Def';
+import Widget from '../../model/widget/instance/Widget';
 import WidgetLayout from '../../model/widget/instance/WidgetLayout';
 
 export enum ACTION {
@@ -12,7 +12,7 @@ export enum ACTION {
 }
 
 export type PayloadCreate = {
-  def: WidgetDef,
+  def: Def,
 };
 
 export type PayloadChangeLayout = {

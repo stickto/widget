@@ -13,7 +13,7 @@ function initFields(fsArray: Array<any>): Array<Field> {
   });
 }
 
-class WidgetDef {
+class Def {
   id?: string;
 
   name?: string;
@@ -48,4 +48,4 @@ class WidgetDef {
   // }
 }
 
-export default WidgetDef;
+export default Def;

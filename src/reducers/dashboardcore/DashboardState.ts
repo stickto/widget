@@ -1,5 +1,5 @@
 import Dashboard from '../../model/dashboard/Dashboard';
-import Widget from '../../model/widget/instance/WidgetConfig';
+import Widget from '../../model/widget/instance/Widget';
 
 type DashboardState = {
   dashboards: Array<Dashboard>, // all dashboards

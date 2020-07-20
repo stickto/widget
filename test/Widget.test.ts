@@ -1,5 +1,5 @@
 import sampleWidgets from '../src/persistence/SampleWidgets';
-import Widget from '../src/model/widget/def/WidgetDef';
+import Widget from '../src/model/widget/def/Def';
 import DropdownField, { Option } from '../src/model/field/DropdownField';
 
 test('init widget', () => {

@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { connect } from 'react-redux';
-import WidgetInsUI from './comps/WidgetInsUI';
+import WidgetUI from './comps/WidgetUI';
 // import instanceHelper from '../../../persistence/instanceHelper';
-import Widget from '../../../model/widget/instance/WidgetConfig';
+import Widget from '../../../model/widget/instance/Widget';
 
 import './Content.scss';
 
@@ -24,7 +24,7 @@ const Content: FC<MyProps> = (props: MyProps) => {
   return (
     <div className="content-panel">
       { widgets!.map((widget: Widget) => (
-        <WidgetInsUI key={widget.id} widget={widget} />
+        <WidgetUI key={widget.id} widget={widget} />
       )) }
     </div>
   );

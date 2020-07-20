@@ -1,4 +1,4 @@
-import Widget from '../../model/widget/instance/WidgetConfig';
+import Widget from '../../model/widget/instance/Widget';
 import instanceHelper from '../../persistence/instanceHelper';
 import WidgetAction, {
   ACTION, PayloadCreate, PayloadChangeLayout, PayloadChangeFieldValues, PayloadChangeFieldValuesAll,

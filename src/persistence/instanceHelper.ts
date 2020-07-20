@@ -1,5 +1,5 @@
 // import sampleInstances from './SampleInstances';
-import Widget from '../model/widget/instance/WidgetConfig';
+import Widget from '../model/widget/instance/Widget';
 
 const KEY = '_DASHBOARD_%_';
 
@@ -13,10 +13,6 @@ function parseConfigObjs(configObjs: Array<object>): Array<Widget> {
   });
   return allInstances;
 }
-
-// function loadSamples(): Array<WidgetConfig> {
-//   return parseConfigObjs(sampleInstances);
-// }
 
 function loadFromLocalStorage(dashboardId: number): Array<Widget> | undefined {
   const key = KEY.replace('%', `${dashboardId}`);

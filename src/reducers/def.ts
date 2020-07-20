@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import Widget from '../model/widget/def/WidgetDef';
+import Widget from '../model/widget/def/Def';
 import defHelper from '../persistence/defHelper';
 
 export enum ACTION {

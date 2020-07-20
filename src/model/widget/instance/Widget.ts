@@ -1,4 +1,4 @@
-import WidgetDef from '../def/WidgetDef';
+import Def from '../def/Def';
 import WidgetLayout from './WidgetLayout';
 import WidgetManager from '../../../WidgetManager';
 import Field from '../../field/Field';
@@ -6,7 +6,7 @@ import Field from '../../field/Field';
 export default class Widget {
   id: number;
 
-  def: WidgetDef;
+  def: Def;
 
   fieldValues: object;
 
@@ -14,7 +14,7 @@ export default class Widget {
 
   constructor(
     id: number,
-    def: WidgetDef,
+    def: Def,
     fieldValues: object | undefined = undefined,
     layout: WidgetLayout = new WidgetLayout(0, 0, 200, 60),
   ) {
@@ -35,7 +35,7 @@ export default class Widget {
   static fromObject(widgetObj: any): Widget | null {
     const defId = widgetObj.def;
     const allDefs = WidgetManager.getAllWidgets();
-    const def = allDefs.find((d: WidgetDef) => d.id === defId);
+    const def = allDefs.find((d: Def) => d.id === defId);
     if (!def) {
       console.error(`Can't find widget definition ${defId}`);
       return null;

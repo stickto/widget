@@ -1,17 +1,17 @@
 // import React from 'react';
-import WidgetDef from './model/widget/def/WidgetDef';
+import Def from './model/widget/def/Def';
 
-const widgets: Array<WidgetDef> = [];
+const widgets: Array<Def> = [];
 
 function registerWidget(Clz: any) {
-  widgets.push(new WidgetDef(Clz));
+  widgets.push(new Def(Clz));
 }
 
 const win: any = window;
 win.registerWidget = registerWidget;
 
 class WidgetManager {
-  static getAllWidgets(): Array<WidgetDef> {
+  static getAllWidgets(): Array<Def> {
     return widgets;
   }
 
