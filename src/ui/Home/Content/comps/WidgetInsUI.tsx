@@ -86,7 +86,7 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
   constructor(props: MyProps) {
     super(props);
     const { widgetConfig } = this.props;
-    const WidgetClz = props.widgetConfig.widget.clz!;
+    const WidgetClz = props.widgetConfig.def.clz!;
     const widgetIns = new WidgetClz();
     widgetIns.props = widgetConfig.fieldValues;
     widgetIns.emitEvent = this.emitEvent;
@@ -230,7 +230,7 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
   render() {
     const { widgetConfig, showSettingDialog } = this.state;
     // const { widget } = widgetConfig;
-    const { widget } = widgetConfig;
+    const { def: widget } = widgetConfig;
     // console.log(widgetIns.render());
     const style = this.calcLayout(widgetConfig.layout);
 

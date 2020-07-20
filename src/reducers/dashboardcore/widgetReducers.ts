@@ -1,6 +1,9 @@
-import WidgetConfig from '../model/widget/instance/WidgetConfig';
-import instanceHelper from '../persistence/instanceHelper';
-import WidgetAction, { ACTION } from './WidgetAction';
+import WidgetConfig from '../../model/widget/instance/WidgetConfig';
+import instanceHelper from '../../persistence/instanceHelper';
+import WidgetAction, {
+  ACTION, PayloadCreate, PayloadChangeLayout, PayloadChangeFieldValues, PayloadChangeFieldValuesAll,
+  PayloadRemove,
+} from './WidgetAction';
 import DashboardState from './DashboardState';
 
 const reducers = (state: DashboardState, action: WidgetAction) => {
@@ -8,7 +11,7 @@ const reducers = (state: DashboardState, action: WidgetAction) => {
     case ACTION.WIDGET_CREATE: {
       const { def } = action.payload as PayloadCreate;
       const widget = new WidgetConfig(instanceHelper.getNextId(state.active.id), def);
-      const widgets = [...state.configs, widget];
+      const widgets = [...state.widgets, widget];
       // save it
       instanceHelper.save(state.active.id, widgets);
 
@@ -29,7 +32,7 @@ const reducers = (state: DashboardState, action: WidgetAction) => {
       // reconstruct the config so that ui can be updated
       const newWidget = WidgetConfig.fromObject(widget.toObject());
       widgets[idx] = newWidget!;
-      instanceHelper.save(state.dashboardId, widgets);
+      instanceHelper.save(state.active.id, widgets);
       return { ...state, widgets };
     }
     case ACTION.WIDGET_REMOVE: {
@@ -49,14 +52,6 @@ const reducers = (state: DashboardState, action: WidgetAction) => {
       instanceHelper.save(state.active.id, widgets as Array<WidgetConfig>);
       return { ...state, widgets };
     }
-    // case ACTION.DASHBOARD_SWITCH: {
-    //   const { id } = action.payload as PayloadDashboardSwitch;
-    //   const configs = instanceHelper.load(dashboardId);
-    //   return {
-    //     configs,
-    //     dashboardId,
-    //   };
-    // }
     default:
       return false;
   }

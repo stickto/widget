@@ -6,7 +6,7 @@ import Field from '../../field/Field';
 export default class WidgetConfig {
   id: number;
 
-  widget: WidgetDef;
+  def: WidgetDef;
 
   fieldValues: object;
 
@@ -14,15 +14,15 @@ export default class WidgetConfig {
 
   constructor(
     id: number,
-    widget: WidgetDef,
+    def: WidgetDef,
     fieldValues: object | undefined = undefined,
     layout: WidgetLayout = new WidgetLayout(0, 0, 200, 60),
   ) {
     this.id = id;
-    this.widget = widget;
+    this.def = def;
     if (!fieldValues) {
       const fieldValues2 = {};
-      widget.fields!.forEach((field: Field) => {
+      def.fields!.forEach((field: Field) => {
         fieldValues2[field.name] = field.defaultValue;
       });
       this.fieldValues = fieldValues2;
@@ -32,24 +32,24 @@ export default class WidgetConfig {
     this.layout = layout;
   }
 
-  static fromObject(insObj: any): WidgetConfig | null {
-    const widgetId = insObj.widget;
-    const allWidgets = WidgetManager.getAllWidgets();
-    const widget = allWidgets.find((w: WidgetDef) => w.id === widgetId);
-    if (!widget) {
-      console.error(`Can't find widget ${widgetId}`);
+  static fromObject(widgetObj: any): WidgetConfig | null {
+    const defId = widgetObj.def;
+    const allDefs = WidgetManager.getAllWidgets();
+    const def = allDefs.find((d: WidgetDef) => d.id === defId);
+    if (!def) {
+      console.error(`Can't find widget definition ${defId}`);
       return null;
     }
-    const fieldValues = { ...insObj.fieldValues };
-    const layout = new WidgetLayout(insObj.layout.x, insObj.layout.y,
-      insObj.layout.width, insObj.layout.height);
-    return new WidgetConfig(insObj.id, widget, fieldValues, layout);
+    const fieldValues = { ...widgetObj.fieldValues };
+    const layout = new WidgetLayout(widgetObj.layout.x, widgetObj.layout.y,
+      widgetObj.layout.width, widgetObj.layout.height);
+    return new WidgetConfig(widgetObj.id, def, fieldValues, layout);
   }
 
   toObject(): object {
     return {
       id: this.id,
-      widget: this.widget.id,
+      def: this.def.id,
       fieldValues: this.fieldValues,
       layout: this.layout.toObject(),
     };

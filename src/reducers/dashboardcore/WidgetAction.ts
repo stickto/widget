@@ -1,6 +1,6 @@
-import WidgetDef from '../model/widget/def/WidgetDef';
-import WidgetConfig from '../model/widget/instance/WidgetConfig';
-import WidgetLayout from '../model/widget/instance/WidgetLayout';
+import WidgetDef from '../../model/widget/def/WidgetDef';
+import WidgetConfig from '../../model/widget/instance/WidgetConfig';
+import WidgetLayout from '../../model/widget/instance/WidgetLayout';
 
 export enum ACTION {
   WIDGET_CREATE = 'config_create',
@@ -11,29 +11,29 @@ export enum ACTION {
   DASHBOARD_SWITCH = 'dashboard_switch', // TODO: same as switch in dashboard.ts, to be refactored
 }
 
-type PayloadCreate = {
+export type PayloadCreate = {
   def: WidgetDef,
 };
 
-type PayloadChangeLayout = {
+export type PayloadChangeLayout = {
   widget: WidgetConfig,
   layout: WidgetLayout,
 };
 
-type PayloadChangeFieldValues = {
+export type PayloadChangeFieldValues = {
   widget: WidgetConfig,
   fieldValues: object,
 };
 
-type PayloadChangeFieldValuesAll = {
+export type PayloadChangeFieldValuesAll = {
   fieldValues: object,
 };
 
-type PayloadRemove = {
+export type PayloadRemove = {
   id: number,
 };
 
-type PayloadDashboardSwitch = {
+export type PayloadDashboardSwitch = {
   id: number,
 };
 

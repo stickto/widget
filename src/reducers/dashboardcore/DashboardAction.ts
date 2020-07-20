@@ -7,20 +7,20 @@ export enum ACTION {
   DASHBOARD_SWITCH = 'dashboard_switch', // user switches dashboard
 }
 
-type PayloadCreate = {
+export type PayloadCreate = {
   name: string,
 };
 
-type PayloadRename = {
+export type PayloadRename = {
   dashboard: Dashboard,
   name: string,
 };
 
-type PayloadRemove = {
+export type PayloadRemove = {
   id: number,
 };
 
-type PayloadSwitch = {
+export type PayloadSwitch = {
   id: number,
 };
 

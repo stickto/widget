@@ -1,8 +1,10 @@
-import Dashboard from '../model/dashboard/Dashboard';
-import dashboardHelper from '../persistence/dashboardHelper';
-import DashboardAction, { ACTION } from './DashboardAction';
+import Dashboard from '../../model/dashboard/Dashboard';
+import dashboardHelper from '../../persistence/dashboardHelper';
+import DashboardAction, {
+  ACTION, PayloadCreate, PayloadRename, PayloadRemove, PayloadSwitch,
+} from './DashboardAction';
 import DashboardState from './DashboardState';
-import instanceHelper from '../persistence/instanceHelper';
+import instanceHelper from '../../persistence/instanceHelper';
 
 const dashboardReducer = (state: DashboardState, action: DashboardAction) => {
   switch (action.type) {
@@ -43,7 +45,8 @@ const dashboardReducer = (state: DashboardState, action: DashboardAction) => {
       if (!active) {
         return state;
       }
-      return { ...state, active };
+      const widgets = instanceHelper.load(active.id);
+      return { ...state, active, widgets };
     }
     default:
       return false;

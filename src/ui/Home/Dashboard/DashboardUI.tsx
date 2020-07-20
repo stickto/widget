@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import {
   Select, Button, Modal, message, Input,
 } from 'antd';
-import { EditOutlined, ShareAltOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import {
+  EditOutlined, ShareAltOutlined, DeleteOutlined, PlusOutlined,
+} from '@ant-design/icons';
 import Dashboard from '../../../model/dashboard/Dashboard';
-import { ACTION } from '../../../reducers/dashboard';
+import { ACTION } from '../../../reducers/dashboardcore/DashboardAction';
 import uiUtil from '../../../util/uiUtil';
 import './DashboardUI.scss';
 
