@@ -5,11 +5,11 @@ import instanceHelper from '../persistence/instanceHelper';
 import WidgetLayout from '../model/widget/instance/WidgetLayout';
 
 export enum ACTION {
-  CREATE = 'create',
-  REMOVE = 'remove',
-  FIELD_VALUE_CHANGED = 'fieldValueChanged',
-  FIELD_VALUE_CHANGED_ALL = 'fieldValueChangedAll', // change field values of all widgets, this is for event
-  LAYOUT_CHANGED = 'layoutChanged',
+  CREATE = 'config_create',
+  REMOVE = 'config_remove',
+  FIELD_VALUE_CHANGED = 'config_fieldValueChanged',
+  FIELD_VALUE_CHANGED_ALL = 'config_fieldValueChangedAll', // change field values of all widgets, this is for event
+  LAYOUT_CHANGED = 'config_layoutChanged',
 }
 
 type PayloadCreate = {

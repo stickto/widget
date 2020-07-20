@@ -3,10 +3,10 @@ import Dashboard from '../model/dashboard/Dashboard';
 import dashboardHelper from '../persistence/dashboardHelper';
 
 export enum ACTION {
-  CREATE = 'create',
-  REMOVE = 'remove',
-  RENAME = 'rename',
-  SWITCH = 'switch', // user switches dashboard
+  CREATE = 'dashboard_create',
+  REMOVE = 'dashboard_remove',
+  RENAME = 'dashboard_rename',
+  SWITCH = 'dashboard_switch', // user switches dashboard
 }
 
 type PayloadCreate = {
@@ -14,7 +14,8 @@ type PayloadCreate = {
 };
 
 type PayloadRename = {
-  dashboard: Dashboard
+  dashboard: Dashboard,
+  name: string,
 };
 
 type PayloadRemove = {
@@ -58,7 +59,8 @@ const dashboardReducer = (state: MyState = initState, action: MyAction) => {
       };
     }
     case ACTION.RENAME: {
-      const { dashboard } = action.payload as PayloadRename;
+      const { dashboard, name } = action.payload as PayloadRename;
+      dashboard.name = name;
       const dashboards = [...state.dashboards];
       dashboardHelper.save(dashboards);
       return {
@@ -72,7 +74,7 @@ const dashboardReducer = (state: MyState = initState, action: MyAction) => {
       dashboardHelper.save(dashboards);
       return {
         dashboards,
-        active: state.active,
+        active: dashboards[0],
       };
     }
     case ACTION.SWITCH: {

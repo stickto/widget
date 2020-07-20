@@ -3,7 +3,7 @@ import Widget from '../model/widget/def/WidgetDef';
 import defHelper from '../persistence/defHelper';
 
 export enum ACTION {
-  CREATE = 'create',
+  CREATE = 'def_create',
 }
 
 type PayloadCreate = {
