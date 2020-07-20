@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import { connect } from 'react-redux';
 import {
-  Select, Button, Modal, message,
+  Select, Button, Modal, message, Input,
 } from 'antd';
-import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { EditOutlined, ShareAltOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import Dashboard from '../../../model/dashboard/Dashboard';
 import { ACTION } from '../../../reducers/dashboard';
 import uiUtil from '../../../util/uiUtil';
+import './DashboardUI.scss';
 
 type MyProps = {
   dashboards?: Array<Dashboard>,
@@ -71,6 +72,21 @@ const DashboardUI: FC<MyProps> = (props: MyProps) => {
       message.success('Dashboard renamed');
     });
   };
+  const onShare = () => {
+    // eslint-disable-next-line no-restricted-globals
+    const url = `${location.origin}/share?id=${active!.id}`;
+    let inputRef: any;
+    Modal.confirm({
+      title: 'Copy the following url and share it',
+      content: <Input defaultValue={url} ref={(ref) => { inputRef = ref; }} />,
+      okText: 'Copy',
+      onOk: () => {
+        inputRef.select();
+        document.execCommand('Copy');
+        message.success('Share url copied');
+      },
+    });
+  };
   const onNew = () => {
     uiUtil.confirm('Please input dashboard name', '', (name:string) => {
       if (name.trim().length === 0) {
@@ -104,21 +120,27 @@ const DashboardUI: FC<MyProps> = (props: MyProps) => {
   };
 
   return (
-    <>
-      <span>{active!.name}</span>
-      <EditOutlined onClick={onEdit} />
-      <DeleteOutlined onClick={onRemove} />
-      <span>Switch to：</span>
-      <Select
-        value={active!.id}
-        onChange={onSwitch}
-      >
-        { dashboards?.map((dashboard:Dashboard) => (
-          <Select.Option key={dashboard.id} value={dashboard.id}>{dashboard.name}</Select.Option>
-        ))}
-      </Select>
-      <Button type="primary" icon={<PlusOutlined />} onClick={onNew}>New</Button>
-    </>
+    <div className="dashboard">
+      <span className="name">{active!.name}</span>
+      <div className="actions">
+        <Button className="action-rename" shape="circle" icon={<EditOutlined />} onClick={onEdit} />
+        <Button className="action-share" shape="circle" icon={<ShareAltOutlined />} onClick={onShare} />
+        <Button className="action-remove" shape="circle" icon={<DeleteOutlined />} onClick={onRemove} />
+      </div>
+      <div className="partRight">
+        <span>Switch to：</span>
+        <Select
+          className="action-switch"
+          value={active!.id}
+          onChange={onSwitch}
+        >
+          { dashboards?.map((dashboard:Dashboard) => (
+            <Select.Option key={dashboard.id} value={dashboard.id}>{dashboard.name}</Select.Option>
+          ))}
+        </Select>
+        <Button className="action-new" type="primary" icon={<PlusOutlined />} onClick={onNew}>New</Button>
+      </div>
+    </div>
   );
 };
 

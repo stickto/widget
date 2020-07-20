@@ -1,0 +1,15 @@
+.dashboard {
+  &:hover .actions {
+    display: inline-block;
+  }
+  .actions {
+    display: none;
+    margin-left: 10px;
+  }
+  .partRight {
+    float: right;
+    .action-new {
+      margin-left: 10px;
+    }
+  }
+}

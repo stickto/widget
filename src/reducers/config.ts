@@ -11,7 +11,7 @@ export enum ACTION {
   FIELD_VALUE_CHANGED = 'config_fieldValueChanged',
   FIELD_VALUE_CHANGED_ALL = 'config_fieldValueChangedAll', // change field values of all widgets, this is for event
   LAYOUT_CHANGED = 'config_layoutChanged',
-  DASHBOARD_SWITH = 'dashboard_switch', // TODO: same as switch in dashboard.ts, to be refactored
+  DASHBOARD_SWITCH = 'dashboard_switch', // TODO: same as switch in dashboard.ts, to be refactored
 }
 
 type PayloadCreate = {
@@ -47,7 +47,8 @@ type MyState = {
 
 type MyAction = {
   type: ACTION,
-  payload: PayloadCreate | PayloadChangeLayout | PayloadChangeFieldValues | PayloadRemove | PayloadDashboardSwitch,
+  payload: PayloadCreate | PayloadChangeLayout | PayloadChangeFieldValues
+  | PayloadRemove | PayloadDashboardSwitch,
 };
 
 const initState = (() => {
@@ -117,7 +118,7 @@ const configReducer = (state: MyState = initState, action: MyAction) => {
         dashboardId: state.dashboardId,
       };
     }
-    case ACTION.DASHBOARD_SWITH: {
+    case ACTION.DASHBOARD_SWITCH: {
       const { id } = action.payload as PayloadDashboardSwitch;
       const dashboardId = id;
       const configs = instanceHelper.load(dashboardId);
