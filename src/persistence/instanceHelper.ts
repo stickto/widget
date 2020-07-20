@@ -1,12 +1,16 @@
 // import sampleInstances from './SampleInstances';
 import Widget from '../model/widget/instance/Widget';
+import Def from '../model/widget/def/Def';
+import defHelper from './defHelper';
 
 const KEY = '_DASHBOARD_%_';
 
 function parseConfigObjs(configObjs: Array<object>): Array<Widget> {
+  const allDefs = defHelper.load();
   const allInstances: Array<Widget> = [];
   configObjs.forEach((insObj: any) => {
-    const w = Widget.fromObject(insObj);
+    const def = allDefs.find((d: Def) => d.id === insObj.def);
+    const w = Widget.fromObject(insObj, def!);
     if (w instanceof Widget) {
       allInstances.push(w);
     }

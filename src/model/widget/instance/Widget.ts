@@ -32,12 +32,12 @@ export default class Widget {
     this.layout = layout;
   }
 
-  static fromObject(widgetObj: any): Widget | null {
-    const defId = widgetObj.def;
-    const allDefs = WidgetManager.getAllWidgets();
-    const def = allDefs.find((d: Def) => d.id === defId);
+  static fromObject(widgetObj: any, def: Def): Widget | null {
+    // const defId = widgetObj.def;
+    // const allDefs = WidgetManager.getAllWidgets();
+    // const def = allDefs.find((d: Def) => d.id === defId);
     if (!def) {
-      console.error(`Can't find widget definition ${defId}`);
+      console.error(`Please pass in widget definition ${widgetObj.def}`);
       return null;
     }
     const fieldValues = { ...widgetObj.fieldValues };
@@ -53,5 +53,9 @@ export default class Widget {
       fieldValues: this.fieldValues,
       layout: this.layout.toObject(),
     };
+  }
+
+  clone(): Widget {
+    return new Widget(this.id, this.def, this.fieldValues, this.layout);
   }
 }

@@ -28,10 +28,10 @@ const reducers = (state: DashboardState, action: WidgetAction) => {
       const { widget, fieldValues } = action.payload as PayloadChangeFieldValues;
       widget.fieldValues = fieldValues;
       const widgets = [...state.widgets];
-      const idx = widgets.indexOf(widget);
+      // const idx = widgets.indexOf(widget);
       // reconstruct the config so that ui can be updated
-      const newWidget = Widget.fromObject(widget.toObject());
-      widgets[idx] = newWidget!;
+      // const newWidget = Widget.fromObject(widget.toObject());
+      // widgets[idx] = newWidget!;
       instanceHelper.save(state.active.id, widgets);
       return { ...state, widgets };
     }
@@ -46,8 +46,7 @@ const reducers = (state: DashboardState, action: WidgetAction) => {
       const widgets = state.widgets.map((w: Widget) => {
         // eslint-disable-next-line no-param-reassign
         w.fieldValues = { ...w.fieldValues, ...fieldValues };
-        const nw = Widget.fromObject(w.toObject());
-        return nw;
+        return w.clone();
       });
       instanceHelper.save(state.active.id, widgets as Array<Widget>);
       return { ...state, widgets };
