@@ -6,10 +6,28 @@ import WidgetAction from './dashboardcore/WidgetAction';
 import dashboardReducers from './dashboardcore/dashboardReducers';
 import widgetReducers from './dashboardcore/widgetReducers';
 import instanceHelper from '../persistence/instanceHelper';
+import Dashboard from '../model/dashboard/Dashboard';
 
 const initState = (() => {
   const dashboards = dashboardHelper.load();
-  const active = dashboards[0];
+  let idx = 0;
+  // eslint-disable-next-line no-restricted-globals
+  const { href } = location;
+  if (href.indexOf('/share') >= 0) { // quick check for demo only
+    const m = /id=(\d)/.exec(href);
+    if (m) {
+      const id = parseInt(m[1], 10);
+      idx = dashboards.findIndex((d:Dashboard) => d.id === id);
+      if (idx < 0) {
+        // eslint-disable-next-line no-alert
+        alert(`No dashboard found for id ${id}`);
+      }
+    } else {
+      // eslint-disable-next-line no-alert
+      alert('Dashboard id is missing in url');
+    }
+  }
+  const active = dashboards[idx];
   const widgets = instanceHelper.load(active.id);
   return {
     dashboards,

@@ -76,7 +76,7 @@ const DashboardUI: FC<MyProps> = (props: MyProps) => {
   };
   const onShare = () => {
     // eslint-disable-next-line no-restricted-globals
-    const url = `${location.origin}/share?id=${active!.id}`;
+    const url = `${location.origin}/#/share?id=${active!.id}`;
     let inputRef: any;
     Modal.confirm({
       title: 'Copy the following url and share it',
