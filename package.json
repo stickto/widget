@@ -30,6 +30,7 @@
     "react-hot-loader": "^4.12.21",
     "react-redux": "^7.2.0",
     "react-rnd": "^10.1.10",
+    "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
     "typescript": "^3.7.4"
   },
