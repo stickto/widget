@@ -3,15 +3,14 @@ import { connect } from 'react-redux';
 import { Card, Modal, message } from 'antd';
 import { Rnd } from 'react-rnd';
 import { SettingOutlined, DeleteOutlined } from '@ant-design/icons';
-// import WidgetDef from 'model@/widget/def/WidgetDef';
-import { ACTION } from '../../../../reducers/config';
+import { ACTION } from '../../../../reducers/dashboardcore/WidgetAction';
 import WidgetConfig from '../../../../model/widget/instance/WidgetConfig';
 import './WidgetInsUI.scss';
 import WidgetLayout from '../../../../model/widget/instance/WidgetLayout';
 import SettingUI from './SettingUI';
 
 type MyProps = {
-  widgetConfig: WidgetConfig,
+  widget: WidgetConfig,
   changeLayout?: any,
   changeFieldValues?:any,
   remove?: any,
@@ -19,7 +18,7 @@ type MyProps = {
 };
 
 type MyState = {
-  widgetConfig: WidgetConfig,
+  widget: WidgetConfig,
   widgetIns: any,
   showSettingDialog: boolean,
 };
@@ -85,23 +84,23 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
 
   constructor(props: MyProps) {
     super(props);
-    const { widgetConfig } = this.props;
-    const WidgetClz = props.widgetConfig.def.clz!;
+    const { widget } = this.props;
+    const WidgetClz = widget.def.clz!;
     const widgetIns = new WidgetClz();
-    widgetIns.props = widgetConfig.fieldValues;
+    widgetIns.props = widget.fieldValues;
     widgetIns.emitEvent = this.emitEvent;
     this.state = {
-      widgetConfig: props.widgetConfig,
+      widget,
       widgetIns,
       showSettingDialog: false,
     };
   }
 
   static getDerivedStateFromProps(nextProps: any, prevState: any) {
-    const { widgetConfig } = nextProps;
-    if (widgetConfig !== prevState.widgetConfig) {
+    const { widget } = nextProps;
+    if (widget !== prevState.widget) {
       return {
-        widgetConfig,
+        widget,
       };
     }
     return null;
@@ -110,23 +109,11 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
   componentDidMount() {
     const { widgetIns } = this.state;
     renderIns(this.container!, widgetIns, false);
-    // const ele = await widgetIns.render() as HTMLElement;
-    // this.container!.appendChild(ele);
-    // if (widgetIns.didMount) {
-    //   widgetIns.didMount();
-    // }
   }
 
   componentDidUpdate() {
-    // const { widgetConfig, widgetIns } = this.state;
-    // widgetIns.props = widgetConfig.fieldValues;
-    // const ele = widgetIns.render() as HTMLElement;
-    // const container = this.container!;
-    // container.removeChild(container.childNodes[0]);
-    // container.appendChild(ele);
-
-    const { widgetConfig, widgetIns } = this.state;
-    widgetIns.props = widgetConfig.fieldValues;
+    const { widget, widgetIns } = this.state;
+    widgetIns.props = widget.fieldValues;
     const container = this.container!;
     container.removeChild(container.childNodes[0]);
     renderIns(container, widgetIns, true);
@@ -162,16 +149,16 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
   };
 
   onDragStop = (e:any, d: any) => {
-    const { widgetConfig, changeLayout } = this.props;
+    const { widget, changeLayout } = this.props;
     const layoutObj = {
       x: d.x,
       y: d.y,
-      width: widgetConfig.layout.width,
-      height: widgetConfig.layout.height,
+      width: widget.layout.width,
+      height: widget.layout.height,
     };
     alighToGrid(layoutObj);
     const layout = new WidgetLayout(layoutObj.x, layoutObj.y, layoutObj.width, layoutObj.height);
-    changeLayout(widgetConfig, layout);
+    changeLayout(widget, layout);
   };
 
   onResizeStop = (e: any, direction: any, ref: any, delta: any, position: any) => {
@@ -185,8 +172,8 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
     // console.log(e, ref, position);
     console.log(layoutObj);
     const layout = new WidgetLayout(layoutObj.x, layoutObj.y, layoutObj.width, layoutObj.height);
-    const { widgetConfig, changeLayout } = this.props;
-    changeLayout(widgetConfig, layout);
+    const { widget, changeLayout } = this.props;
+    changeLayout(widget, layout);
   };
 
   onDelete = () => {
@@ -200,8 +187,8 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
       title: 'Are you sure to remove this widget?',
       icon: <DeleteOutlined />,
       onOk: () => {
-        const { remove, widgetConfig } = this.props;
-        remove(widgetConfig.id);
+        const { remove, widget } = this.props;
+        remove(widget.id);
         message.success('Widget removed');
       },
     });
@@ -214,8 +201,8 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
   };
 
   onSettingOk = (newFieldValues: object) => {
-    const { widgetConfig, changeFieldValues } = this.props;
-    changeFieldValues(widgetConfig, newFieldValues);
+    const { widget, changeFieldValues } = this.props;
+    changeFieldValues(widget, newFieldValues);
     this.setState({
       showSettingDialog: false,
     });
@@ -228,11 +215,10 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
   };
 
   render() {
-    const { widgetConfig, showSettingDialog } = this.state;
-    // const { widget } = widgetConfig;
-    const { def: widget } = widgetConfig;
+    const { widget, showSettingDialog } = this.state;
+    const { def } = widget;
     // console.log(widgetIns.render());
-    const style = this.calcLayout(widgetConfig.layout);
+    const style = this.calcLayout(widget.layout);
 
     const styleRnd = {
       display: 'flex',
@@ -260,8 +246,8 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
             }}
           >
             <div className="head">
-              <img className="def-icon" src={widget.icon} alt={widget.name} />
-              <div className="def-name">{widget.name}</div>
+              <img className="def-icon" src={def.icon} alt={def.name} />
+              <div className="def-name">{def.name}</div>
               <DeleteOutlined
                 className="def-delete"
                 onClick={this.onDelete}
@@ -275,8 +261,8 @@ class WidgetInsUI extends React.Component <MyProps, MyState> {
           </Card>
         </Rnd>
         <SettingUI
-          fields={widget.fields!}
-          fieldValues={widgetConfig.fieldValues}
+          fields={def.fields!}
+          fieldValues={widget.fieldValues}
           visible={showSettingDialog}
           onOk={this.onSettingOk}
           onCancel={this.onSettingCancel}

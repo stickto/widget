@@ -24,7 +24,7 @@ const Content: FC<MyProps> = (props: MyProps) => {
   return (
     <div className="content-panel">
       { widgets!.map((widget: WidgetConfig) => (
-        <WidgetInsUI key={widget.id} widgetConfig={widget} />
+        <WidgetInsUI key={widget.id} widget={widget} />
       )) }
     </div>
   );
