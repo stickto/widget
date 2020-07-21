@@ -4,7 +4,7 @@ import { Card, Modal, message } from 'antd';
 import { Rnd } from 'react-rnd';
 import { SettingOutlined, DeleteOutlined } from '@ant-design/icons';
 import {
-  createWidget, removeWidget, changeWidgetLayout, changeWidgetFieldValue,
+  removeWidget, changeWidgetLayout, changeWidgetFieldValue,
 } from '../../../../reducers/dashboardcore/WidgetAction';
 import Widget from '../../../../model/widget/instance/Widget';
 import './WidgetUI.scss';

@@ -18,7 +18,7 @@ type MyAction = {
 
 export const createWidget = (def: Def) => async (dispatch: any, getState: any) => {
   const { id: dashboardId } = getState().dashboard.active!;
-  const widget = new Widget(await instanceHelper.getNextId(dashboardId), def);
+  const widget = new Widget(await instanceHelper.getNextIdAsync(dashboardId), def);
   const widgets = [...getState().dashboard.widgets, widget];
   // save it
   await instanceHelper.saveAsync(dashboardId, widgets);

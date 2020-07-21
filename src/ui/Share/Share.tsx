@@ -39,7 +39,7 @@ const Content: FC<MyProps> = (props: MyProps) => {
   } = props;
   if (!inited) { // trigger init
     // eslint-disable-next-line no-restricted-globals
-    const m = /id=(\d)/.exec(location.href); // this regex is not enough, but ok for demo
+    const m = /id=(\d+)/.exec(location.href); // this regex is not enough, but ok for demo
     if (m) {
       const id = parseInt(m[1], 10);
       init(id);
@@ -65,7 +65,7 @@ const Content: FC<MyProps> = (props: MyProps) => {
   }
   return (
     <Layout style={{ minHeight: '100vh' }} className="site-layout">
-      <Header style={{ backgroundColor: '#ccc' }}>
+      <Header style={{ backgroundColor: '#ccc', fontSize: '28px', color: 'white' }}>
         {active.name}
       </Header>
       <Layout style={{ position: 'relative' }}>

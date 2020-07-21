@@ -36,36 +36,37 @@ function writeToLocalStorage(dashboardId: number, widgets: Array<Widget>) {
 }
 
 export default {
-  load(dashboardId: number): Array<Widget> {
-    let widgets = loadFromLocalStorage(dashboardId);
-    if (!widgets) {
-      widgets = [];
-      writeToLocalStorage(dashboardId, widgets);
-    }
-    return widgets;
-  },
   async loadAsync(dashboardId: number): Promise<Array<Widget>> {
     return new Promise((resolve: any) => {
-      resolve(this.load(dashboardId));
+      let widgets = loadFromLocalStorage(dashboardId);
+      if (!widgets) {
+        widgets = [];
+        writeToLocalStorage(dashboardId, widgets);
+      }
+      resolve(widgets);
     });
-  },
-  getNextId(dashboardId:number): number {
-    const maxId = this.load(dashboardId).reduce(
-      (prev: number, cur: Widget) => Math.max(cur.id, prev), -1,
-    );
-    return maxId + 1;
   },
   async getNextIdAsync(dashboardId:number): Promise<number> {
+    const loadPromise = this.loadAsync(dashboardId);
     return new Promise((resolve: any) => {
-      resolve(this.getNextId(dashboardId));
+      loadPromise.then((widgets: Widget[]) => {
+        const maxId = widgets.reduce(
+          (prev: number, cur: Widget) => Math.max(cur.id, prev), -1,
+        );
+        resolve(maxId + 1);
+      });
     });
-  },
-  save(dashboardId: number, widgets: Array<Widget>) {
-    writeToLocalStorage(dashboardId, widgets);
   },
   async saveAsync(dashboardId: number, widgets: Array<Widget>): Promise<any> {
     return new Promise((resolve: any) => {
-      this.save(dashboardId, widgets);
+      writeToLocalStorage(dashboardId, widgets);
+      resolve();
+    });
+  },
+  async removeDashboardAsync(id:number): Promise<any> {
+    return new Promise((resolve: any) => {
+      const key = KEY.replace('%', `${id}`);
+      localStorage.removeItem(key);
       resolve();
     });
   },

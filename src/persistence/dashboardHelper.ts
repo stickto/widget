@@ -1,6 +1,6 @@
 import Dashboard from '../model/dashboard/Dashboard';
 
-const KEY = '_DASHBOARD_';
+const KEY = '_DASHBOARD_LIST_';
 
 function loadFromLocalStorage(): Array<Dashboard> | undefined {
   const dashboardStr = localStorage.getItem(KEY);
@@ -18,43 +18,37 @@ function writeToLocalStorage(dashboards: Array<Dashboard>) {
 }
 
 export default {
-  load(): Array<Dashboard> {
-    let dashboards = loadFromLocalStorage();
-    if (!dashboards) {
-      // TODO: here first dashboard is created for quick demo only,
-      // should be removed in production code
-      dashboards = [
-        Dashboard.fromObject({
-          id: 1,
-          name: 'My First Dashboard',
-        }),
-      ];
-      writeToLocalStorage(dashboards);
-    }
-    return dashboards;
-  },
   async loadAsync(): Promise<Dashboard[]> {
     return new Promise((resolve: any) => {
-      resolve(this.load());
+      let dashboards = loadFromLocalStorage();
+      if (!dashboards) {
+        // TODO: here first dashboard is created for quick demo only,
+        // should be removed in production code
+        dashboards = [
+          Dashboard.fromObject({
+            id: 1,
+            name: 'My First Dashboard',
+          }),
+        ];
+        writeToLocalStorage(dashboards);
+      }
+      resolve(dashboards);
     });
-  },
-  getNextId(): number {
-    const maxId = this.load().reduce(
-      (prev: number, cur: Dashboard) => Math.max(cur.id, prev), -1,
-    );
-    return maxId + 1;
   },
   async getNextIdAsync(): Promise<number> {
+    const loadPromise = this.loadAsync();
     return new Promise((resolve: any) => {
-      resolve(this.getNextId());
+      loadPromise.then((dashboards: Dashboard[]) => {
+        const maxId = dashboards.reduce(
+          (prev: number, cur: Dashboard) => Math.max(cur.id, prev), -1,
+        );
+        resolve(maxId + 1);
+      });
     });
-  },
-  save(dashboards: Array<Dashboard>) {
-    writeToLocalStorage(dashboards);
   },
   async saveAsync(dashboards: Array<Dashboard>): Promise<any> {
     return new Promise((resolve: any) => {
-      this.save(dashboards);
+      writeToLocalStorage(dashboards);
       resolve();
     });
   },

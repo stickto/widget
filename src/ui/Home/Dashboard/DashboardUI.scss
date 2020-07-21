@@ -1,4 +1,8 @@
 .dashboard {
+  .name {
+    font-size: 28px;
+    color: white;
+  }
   &:hover .actions {
     display: inline-block;
   }

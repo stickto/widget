@@ -1,7 +1,6 @@
-import dashboardHelper from '../../persistence/dashboardHelper';
 import DashboardAction, {
-  ACTION, PayloadInit, PayloadCreate,
-  PayloadRename, PayloadRemove, PayloadSwitch, PayloadDashboard
+  ACTION, PayloadInit,
+  PayloadRename, PayloadSwitch, PayloadDashboard,
 } from './DashboardAction';
 import DashboardState from './DashboardState';
 
@@ -23,7 +22,7 @@ const dashboardReducer = (state: DashboardState, action: DashboardAction) => {
       };
     }
     case ACTION.DASHBOARD_RENAME: {
-      const { dashboards } = action.payload as PayloadRename;
+      const dashboards = [...(action.payload as PayloadRename).dashboards];
       return { ...state, dashboards };
     }
     case ACTION.DASHBOARD_SWITCH: {
