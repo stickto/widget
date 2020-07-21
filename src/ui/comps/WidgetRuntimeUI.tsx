@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Card, message } from 'antd';
 import { changeWidgetFieldValueAll } from '../../reducers/dashboardcore/WidgetAction';
 import Widget from '../../model/widget/instance/Widget';
-import './WidgetUICore.scss';
+import './WidgetRuntimeUI.scss';
 // import WidgetLayout from '../../model/widget/instance/WidgetLayout';
 
 type MyProps = {
@@ -13,7 +13,7 @@ type MyProps = {
 
 type MyState = {
   widget: Widget,
-  widgetIns: any,
+  widgetIns: any, // widget instance, created from widget class provided by widget owner
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
@@ -30,7 +30,7 @@ async function renderIns(container: HTMLElement, widgetIns: any, mounted: boolea
   }
 }
 
-class WidgetUI extends React.Component <MyProps, MyState> {
+class WidgetRuntimeUI extends React.Component <MyProps, MyState> {
   container: HTMLElement | null = null;
 
   constructor(props: MyProps) {
@@ -90,15 +90,6 @@ class WidgetUI extends React.Component <MyProps, MyState> {
   };
 
   render() {
-    // const { widget } = this.state;
-    // const { layout } = widget;
-    // const style = {
-    //   x: layout.x,
-    //   y: layout.y,
-    //   width: layout.width,
-    //   height: layout.height,
-    // };
-
     return (
       <>
         <Card
@@ -114,4 +105,4 @@ class WidgetUI extends React.Component <MyProps, MyState> {
   }
 }
 
-export default connect(undefined, mapDispatchToProps)(WidgetUI);
+export default connect(undefined, mapDispatchToProps)(WidgetRuntimeUI);

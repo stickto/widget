@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   },
 });
 
-const Content: FC<MyProps> = (props: MyProps) => {
+const Share: FC<MyProps> = (props: MyProps) => {
   const {
     active, widgets, init, inited,
   } = props;
@@ -78,4 +78,4 @@ const Content: FC<MyProps> = (props: MyProps) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
+export default connect(mapStateToProps, mapDispatchToProps)(Share);

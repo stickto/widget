@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
-import { Modal, Form, Input, Select } from 'antd';
+import {
+  Modal, Form, Input, Select,
+} from 'antd';
 import Field from '../../../../model/field/Field';
 import DropdownField, { Option } from '../../../../model/field/DropdownField';
 

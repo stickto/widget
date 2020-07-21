@@ -10,7 +10,7 @@ import Widget from '../../../../model/widget/instance/Widget';
 import './WidgetUI.scss';
 import WidgetLayout from '../../../../model/widget/instance/WidgetLayout';
 import SettingUI from './SettingUI';
-import WidgetUICore from '../../../comps/WidgetUICore';
+import WidgetRuntimeUI from '../../../comps/WidgetRuntimeUI';
 
 type MyProps = {
   widget: Widget,
@@ -175,7 +175,7 @@ class WidgetUI extends React.Component <MyProps, MyState> {
                 onClick={this.onShowSetting}
               />
             </div>
-            <WidgetUICore widget={widget} />
+            <WidgetRuntimeUI widget={widget} />
           </Card>
         </Rnd>
         <SettingUI

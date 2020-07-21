@@ -1,5 +1,8 @@
 /* eslint-disable no-case-declarations */
-import Widget from '../model/widget/def/Def';
+// no actions are actually being used,
+// because all widget definitions are embedded.
+// so ACTION.CREATE will never be dispatched.
+import Def from '../model/widget/def/Def';
 import defHelper from '../persistence/defHelper';
 
 export enum ACTION {
@@ -7,11 +10,11 @@ export enum ACTION {
 }
 
 type PayloadCreate = {
-  widget: Widget,
+  def: Def,
 };
 
 type MyState = {
-  widgets: Array<Widget>
+  defs: Array<Def>
 };
 
 type MyAction = {
@@ -20,17 +23,17 @@ type MyAction = {
 };
 
 const initState = {
-  widgets: defHelper.load(),
+  defs: defHelper.load(),
 };
 
 const defReducer = (state: MyState = initState, action: MyAction) => {
   switch (action.type) {
-    case ACTION.CREATE:
-      const { widget } = action.payload as PayloadCreate;
-      const newDefs = [...state.widgets, widget];
+    case ACTION.CREATE: // never reach here
+      const { def } = action.payload as PayloadCreate;
+      const newDefs = [...state.defs, def];
       // no need to save
       return {
-        widgets: newDefs,
+        defs: newDefs,
       };
     default:
       return state;

@@ -1,7 +1,7 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 import { connect } from 'react-redux';
 import { Layout, Spin } from 'antd';
-import { ACTION, initDashboard } from '../../reducers/dashboardcore/DashboardAction';
+import { initDashboard } from '../../reducers/dashboardcore/DashboardAction';
 import Toolbox from './Toolbox';
 import Dashboard from './Dashboard';
 import ContentPanel from './Content';

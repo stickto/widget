@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import Widget from '../../model/widget/instance/Widget';
-import WidgetUICore from '../comps/WidgetUICore';
+import WidgetRuntimeUI from '../comps/WidgetRuntimeUI';
 
 import './WidgetUI.scss';
 
@@ -19,7 +19,7 @@ const Content: FC<MyProps> = (props: MyProps) => {
   };
   return (
     <div className="widget-ui" style={style}>
-      <WidgetUICore widget={widget} />
+      <WidgetRuntimeUI widget={widget} />
     </div>
   );
 };
