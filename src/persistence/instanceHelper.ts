@@ -36,7 +36,7 @@ function writeToLocalStorage(dashboardId: number, configs: Array<Widget>) {
 }
 
 export default {
-  load(dashboardId: number): Array<Widget> {
+  async load(dashboardId: number): Promise<Array<Widget>> {
     let configs = loadFromLocalStorage(dashboardId);
     if (!configs) {
       configs = [];

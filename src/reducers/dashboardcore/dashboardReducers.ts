@@ -1,13 +1,27 @@
 import Dashboard from '../../model/dashboard/Dashboard';
+import Widget from '../../model/widget/instance/Widget';
 import dashboardHelper from '../../persistence/dashboardHelper';
 import DashboardAction, {
-  ACTION, PayloadCreate, PayloadRename, PayloadRemove, PayloadSwitch,
+  ACTION, PayloadInit, PayloadCreate, PayloadRename, PayloadRemove, PayloadSwitch,
 } from './DashboardAction';
 import DashboardState from './DashboardState';
 import instanceHelper from '../../persistence/instanceHelper';
 
 const dashboardReducer = (state: DashboardState, action: DashboardAction) => {
   switch (action.type) {
+    case ACTION.DASHBOARD_INIT: {
+      const { id } = action.payload as PayloadInit;
+      const dashboards = dashboardHelper.load();
+      const active = id === undefined ? dashboards[0]
+        : dashboards.find((d: Dashboard) => (d.id === id));
+      let widgets: Array<Widget> = [];
+      if (active) {
+        widgets = await instanceHelper.load(active.id);
+      }
+      return {
+        dashboards, active, widgets, inited: true,
+      };
+    }
     case ACTION.DASHBOARD_CREATE: {
       const { name } = action.payload as PayloadCreate;
       const dashboard = new Dashboard(dashboardHelper.getNextId(), name);

@@ -62,7 +62,9 @@ const mapDispatchToProps = (dispatch: any) => ({
 });
 
 const DashboardUI: FC<MyProps> = (props: MyProps) => {
-  const { dashboards, active } = props;
+  const {
+    dashboards, active,
+  } = props;
   const onEdit = () => {
     uiUtil.confirm('Please input new name', active!.name, (newName:string) => {
       if (newName.trim().length === 0) {

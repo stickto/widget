@@ -1,42 +1,64 @@
-import React from 'react';
-import { Layout, Button } from 'antd';
+import React, { FC, useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Layout, Spin } from 'antd';
+import { ACTION } from '../../reducers/dashboardcore/DashboardAction';
 import Toolbox from './Toolbox';
 import Dashboard from './Dashboard';
 import ContentPanel from './Content';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Sider } = Layout;
 
-class Root extends React.Component<any, any> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      collapsed: false,
-    };
+type MyProps = {
+  init: () => any,
+  inited: boolean,
+};
+
+const mapStateToProps = (state: any) => {
+  const { inited } = state.dashboard;
+  return { inited };
+};
+
+const mapDispatchToProps = (dispatch: any) => ({
+  init: () => {
+    dispatch({
+      type: ACTION.DASHBOARD_INIT,
+      payload: { },
+    });
+  },
+});
+
+const Root: FC<MyProps> = (props: MyProps) => {
+  const { init, inited } = props;
+  const [collapsed, setCollapse] = useState(false);
+  if (!inited) { // trigger init
+    init();
   }
-
-  onCollapse = (collapsed: boolean) => {
-    // console.log(collapsed);
-    this.setState({ collapsed });
-  };
-
-  render() {
-    const { collapsed } = this.state;
-    return (
-      <Layout>
-        <Layout style={{ minHeight: '100vh' }}>
-          <Sider theme="light" width={340} collapsible collapsedWidth={40} collapsed={collapsed} onCollapse={this.onCollapse}>
-            <Toolbox collapsed={collapsed} />
-          </Sider>
-          <Layout className="site-layout">
-            <Header style={{ backgroundColor: '#ccc' }}>
-              <Dashboard />
-            </Header>
-            <ContentPanel />
-          </Layout>
-        </Layout>
+  return (
+    <Layout>
+      <Layout style={{ minHeight: '100vh' }}>
+        {!inited ? <Spin tip="Loading..." /> : (
+          <>
+            <Sider
+              theme="light"
+              width={340}
+              collapsible
+              collapsedWidth={40}
+              collapsed={collapsed}
+              onCollapse={setCollapse}
+            >
+              <Toolbox collapsed={collapsed} />
+            </Sider>
+            <Layout className="site-layout">
+              <Header style={{ backgroundColor: '#ccc' }}>
+                <Dashboard />
+              </Header>
+              <ContentPanel />
+            </Layout>
+          </>
+        )}
       </Layout>
-    );
-  }
-}
+    </Layout>
+  );
+};
 
-export default Root;
+export default connect(mapStateToProps, mapDispatchToProps)(Root);
