@@ -43,9 +43,7 @@ PS: with a little  enhancement, customized widget definitions can also be loaded
 
 ## 3. About design
 
-This demo only supports single user, but can support multiple users with few changes.
-
-Currently, all widget definitions are predefined and shipped with the demo (see **/src/persistence/SampleWidgets.ts**). However, with a little modifications, customized widget definitions can also be loaded from external source.
+This demo only supports single user, but can  support multiple users with quick changes.
 
 ### Domain model
 
