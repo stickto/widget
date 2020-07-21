@@ -1,4 +1,4 @@
-##1. How to run
+## 1. How to run
 
 Firstly, run
 
@@ -33,7 +33,7 @@ PS: with a little more developement, customized widget definitions can also be l
 
 
 
-##3. About design
+## 3. About design
 
 This demo only supports single user, but can support multiple users with few changes.
 
@@ -68,7 +68,7 @@ and the following methods are injected to widget instance to improve its capabil
   - data: event data
 - 
 
-###UI
+### UI
 
 Two pages:
 
