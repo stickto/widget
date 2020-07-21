@@ -1,7 +1,7 @@
 import Def from '../../model/widget/def/Def';
 import Widget from '../../model/widget/instance/Widget';
 import WidgetLayout from '../../model/widget/instance/WidgetLayout';
-import instanceHelper from '../../persistence/instanceHelper';
+import widgetHelper from '../../persistence/widgetHelper';
 
 export enum ACTION {
   WIDGET_UPDATE = 'config_update',
@@ -18,10 +18,10 @@ type MyAction = {
 
 export const createWidget = (def: Def) => async (dispatch: any, getState: any) => {
   const { id: dashboardId } = getState().dashboard.active!;
-  const widget = new Widget(await instanceHelper.getNextIdAsync(dashboardId), def);
+  const widget = new Widget(await widgetHelper.getNextIdAsync(dashboardId), def);
   const widgets = [...getState().dashboard.widgets, widget];
   // save it
-  await instanceHelper.saveAsync(dashboardId, widgets);
+  await widgetHelper.saveAsync(dashboardId, widgets);
 
   dispatch({
     type: ACTION.WIDGET_UPDATE,
@@ -39,7 +39,7 @@ export const changeWidgetLayout = (
   widget.layout = layout;
   const widgets = [...getState().dashboard.widgets];
   // save it
-  await instanceHelper.saveAsync(dashboardId, widgets);
+  await widgetHelper.saveAsync(dashboardId, widgets);
 
   dispatch({
     type: ACTION.WIDGET_UPDATE,
@@ -61,7 +61,7 @@ export const changeWidgetFieldValue = (
   widgets[idx] = widget.clone();
 
   // save it
-  await instanceHelper.saveAsync(dashboardId, widgets);
+  await widgetHelper.saveAsync(dashboardId, widgets);
 
   dispatch({
     type: ACTION.WIDGET_UPDATE,
@@ -83,7 +83,7 @@ export const changeWidgetFieldValueAll = (
   });
 
   // save it
-  await instanceHelper.saveAsync(dashboardId, widgets);
+  await widgetHelper.saveAsync(dashboardId, widgets);
 
   dispatch({
     type: ACTION.WIDGET_UPDATE,
@@ -101,7 +101,7 @@ export const removeWidget = (
   const widgets = getState().dashboard.widgets.filter((w: Widget) => w.id !== id);
 
   // save it
-  await instanceHelper.saveAsync(dashboardId, widgets);
+  await widgetHelper.saveAsync(dashboardId, widgets);
 
   dispatch({
     type: ACTION.WIDGET_UPDATE,

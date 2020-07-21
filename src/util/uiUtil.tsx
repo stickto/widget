@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Modal, Button, Space, Input,
+  Modal, Input,
 } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 

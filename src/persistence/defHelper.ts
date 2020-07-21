@@ -1,11 +1,11 @@
-import WidgetManager from '../WidgetManager';
+import DefManager from '../RefManager';
 import Def from '../model/widget/def/Def';
 import sampleWidgets from './SampleWidgets';
 
-sampleWidgets.forEach((WidgetClz: any) => WidgetManager.registerWidget(WidgetClz));
+sampleWidgets.forEach((WidgetClz: any) => DefManager.registerWidget(WidgetClz));
 
 export default {
   load(): Array<Def> {
-    return WidgetManager.getAllWidgets();
+    return DefManager.getAllWidgets();
   },
 };

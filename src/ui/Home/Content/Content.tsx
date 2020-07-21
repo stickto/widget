@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { connect } from 'react-redux';
 import WidgetUI from './comps/WidgetUI';
-// import instanceHelper from '../../../persistence/instanceHelper';
 import Widget from '../../../model/widget/instance/Widget';
 
 import './Content.scss';

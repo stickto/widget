@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
 import { connect } from 'react-redux';
 import { Layout, Result, Spin } from 'antd';
-// import instanceHelper from '../../../persistence/instanceHelper';
 import Widget from '../../model/widget/instance/Widget';
 import WidgetUI from './WidgetUI';
 import Dashboard from '../../model/dashboard/Dashboard';
-import { ACTION, initDashboard } from '../../reducers/dashboardcore/DashboardAction';
+import { initDashboard } from '../../reducers/dashboardcore/DashboardAction';
 
 import './Share.scss';
 

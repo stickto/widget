@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-// import instanceHelper from '../../../persistence/instanceHelper';
 import Widget from '../../model/widget/instance/Widget';
 import WidgetUICore from '../comps/WidgetUICore';
 

@@ -1,6 +1,5 @@
 import Def from '../def/Def';
 import WidgetLayout from './WidgetLayout';
-import WidgetManager from '../../../WidgetManager';
 import Field from '../../field/Field';
 
 export default class Widget {
@@ -33,9 +32,6 @@ export default class Widget {
   }
 
   static fromObject(widgetObj: any, def: Def): Widget | null {
-    // const defId = widgetObj.def;
-    // const allDefs = WidgetManager.getAllWidgets();
-    // const def = allDefs.find((d: Def) => d.id === defId);
     if (!def) {
       console.error(`Please pass in widget definition ${widgetObj.def}`);
       return null;

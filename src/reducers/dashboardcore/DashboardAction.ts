@@ -1,7 +1,7 @@
 import Dashboard from '../../model/dashboard/Dashboard';
 import dashboardHelper from '../../persistence/dashboardHelper';
 import Widget from '../../model/widget/instance/Widget';
-import instanceHelper from '../../persistence/instanceHelper';
+import widgetHelper from '../../persistence/widgetHelper';
 
 export enum ACTION {
   DASHBOARD_INIT = 'dashboard_init', // load data from datasource
@@ -36,13 +36,13 @@ type MyAction = {
   payload: PayloadRename | PayloadSwitch | PayloadInit | PayloadDashboard,
 };
 
-export const initDashboard = (id?: number) => async (dispatch: any, getState: any) => {
+export const initDashboard = (id?: number) => async (dispatch: any) => {
   const dashboards = await dashboardHelper.loadAsync();
   const active = id === undefined ? dashboards[0]
     : dashboards.find((d: Dashboard) => (d.id === id));
   let widgets: Array<Widget> = [];
   if (active) {
-    widgets = await instanceHelper.loadAsync(active.id);
+    widgets = await widgetHelper.loadAsync(active.id);
   }
   dispatch({
     type: ACTION.DASHBOARD_INIT,
@@ -56,7 +56,7 @@ export const createDashboard = (name: string) => async (dispatch: any, getState:
   // save it
   await dashboardHelper.saveAsync(dashboards);
 
-  const widgets = await instanceHelper.loadAsync(dashboard.id);
+  const widgets = await widgetHelper.loadAsync(dashboard.id);
 
   dispatch({
     type: ACTION.DASHBOARD_UPDATE,
@@ -87,9 +87,9 @@ export const renameDashboard = (
 export const removeDashboard = (id: number) => async (dispatch: any, getState: any) => {
   const dashboards = getState().dashboard.dashboards.filter((d: Dashboard) => d.id !== id);
   await dashboardHelper.saveAsync(dashboards);
-  await instanceHelper.removeDashboardAsync(id);
+  await widgetHelper.removeDashboardAsync(id);
   const active = dashboards[0];
-  const widgets = await instanceHelper.loadAsync(active.id);
+  const widgets = await widgetHelper.loadAsync(active.id);
 
   dispatch({
     type: ACTION.DASHBOARD_UPDATE,
@@ -106,7 +106,7 @@ export const switchDashboard = (id: number) => async (dispatch: any, getState: a
   if (!active) {
     return;
   }
-  const widgets = await instanceHelper.loadAsync(active.id);
+  const widgets = await widgetHelper.loadAsync(active.id);
 
   dispatch({
     type: ACTION.DASHBOARD_SWITCH,

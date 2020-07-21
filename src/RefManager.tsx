@@ -1,4 +1,5 @@
-// import React from 'react';
+// DefManager is desiged to manager all Widget Definitions.
+// It's supposed to support remove definition as well, but not implemented due to time limitation
 import Def from './model/widget/def/Def';
 
 const widgets: Array<Def> = [];
@@ -10,7 +11,7 @@ function registerWidget(Clz: any) {
 const win: any = window;
 win.registerWidget = registerWidget;
 
-class WidgetManager {
+class DefManager {
   static getAllWidgets(): Array<Def> {
     return widgets;
   }
@@ -18,4 +19,4 @@ class WidgetManager {
   static registerWidget = registerWidget;
 }
 
-export default WidgetManager;
+export default DefManager;
