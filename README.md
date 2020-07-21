@@ -74,7 +74,6 @@ and the following methods are injected to widget instance to improve its capabil
 - emitEvent: widget instance can call it to emit event, it need two parameters 
   - name: event name
   - data: event data
-- 
 
 ### UI
 
