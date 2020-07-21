@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { Card, Modal, message } from 'antd';
 import { Rnd } from 'react-rnd';
 import { SettingOutlined, DeleteOutlined } from '@ant-design/icons';
-import { ACTION } from '../../../../reducers/dashboardcore/WidgetAction';
+import {
+  createWidget, removeWidget, changeWidgetLayout, changeWidgetFieldValue,
+} from '../../../../reducers/dashboardcore/WidgetAction';
 import Widget from '../../../../model/widget/instance/Widget';
 import './WidgetUI.scss';
 import WidgetLayout from '../../../../model/widget/instance/WidgetLayout';
@@ -24,30 +26,13 @@ type MyState = {
 
 const mapDispatchToProps = (dispatch: any) => ({
   changeLayout: (widget: Widget, layout: WidgetLayout) => {
-    dispatch({
-      type: ACTION.WIDGET_LAYOUT_CHANGED,
-      payload: {
-        widget,
-        layout,
-      },
-    });
+    dispatch(changeWidgetLayout(widget, layout));
   },
   changeFieldValues: (widget: Widget, fieldValues: object) => {
-    dispatch({
-      type: ACTION.WIDGET_FIELD_VALUE_CHANGED,
-      payload: {
-        widget,
-        fieldValues,
-      },
-    });
+    dispatch(changeWidgetFieldValue(widget, fieldValues));
   },
   remove: (id: number) => {
-    dispatch({
-      type: ACTION.WIDGET_REMOVE,
-      payload: {
-        id,
-      },
-    });
+    dispatch(removeWidget(id));
   },
 });
 

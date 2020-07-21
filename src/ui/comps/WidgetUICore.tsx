@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card, message } from 'antd';
-import { ACTION } from '../../reducers/dashboardcore/WidgetAction';
+import { changeWidgetFieldValueAll } from '../../reducers/dashboardcore/WidgetAction';
 import Widget from '../../model/widget/instance/Widget';
 import './WidgetUICore.scss';
 // import WidgetLayout from '../../model/widget/instance/WidgetLayout';
@@ -18,12 +18,7 @@ type MyState = {
 
 const mapDispatchToProps = (dispatch: any) => ({
   changeFieldValuesAll: (fieldValues: object) => {
-    dispatch({
-      type: ACTION.WIDGET_FIELD_VALUE_CHANGED_ALL,
-      payload: {
-        fieldValues,
-      },
-    });
+    dispatch(changeWidgetFieldValueAll(fieldValues));
   },
 });
 

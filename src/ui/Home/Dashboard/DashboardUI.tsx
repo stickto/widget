@@ -7,7 +7,9 @@ import {
   EditOutlined, ShareAltOutlined, DeleteOutlined, PlusOutlined,
 } from '@ant-design/icons';
 import Dashboard from '../../../model/dashboard/Dashboard';
-import { ACTION } from '../../../reducers/dashboardcore/DashboardAction';
+import {
+  createDashboard, renameDashboard, removeDashboard, switchDashboard,
+} from '../../../reducers/dashboardcore/DashboardAction';
 import uiUtil from '../../../util/uiUtil';
 import './DashboardUI.scss';
 
@@ -27,37 +29,16 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => ({
   create: (name: string) => {
-    dispatch({
-      type: ACTION.DASHBOARD_CREATE,
-      payload: {
-        name,
-      },
-    });
+    dispatch(createDashboard(name));
   },
   rename: (dashboard: Dashboard, name: string) => {
-    dispatch({
-      type: ACTION.DASHBOARD_RENAME,
-      payload: {
-        dashboard,
-        name,
-      },
-    });
+    dispatch(renameDashboard(dashboard, name));
   },
   remove: (id: number) => {
-    dispatch({
-      type: ACTION.DASHBOARD_REMOVE,
-      payload: {
-        id,
-      },
-    });
+    dispatch(removeDashboard(id));
   },
   switchTo: (id: number) => {
-    dispatch({
-      type: ACTION.DASHBOARD_SWITCH,
-      payload: {
-        id,
-      },
-    });
+    dispatch(switchDashboard(id));
   },
 });
 

@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Layout, Spin } from 'antd';
-import { ACTION } from '../../reducers/dashboardcore/DashboardAction';
+import { ACTION, initDashboard } from '../../reducers/dashboardcore/DashboardAction';
 import Toolbox from './Toolbox';
 import Dashboard from './Dashboard';
 import ContentPanel from './Content';
@@ -20,10 +20,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => ({
   init: () => {
-    dispatch({
-      type: ACTION.DASHBOARD_INIT,
-      payload: { },
-    });
+    dispatch(initDashboard());
   },
 });
 

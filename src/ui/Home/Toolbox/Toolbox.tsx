@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card } from 'antd';
-import { ACTION } from '../../../reducers/dashboardcore/WidgetAction';
+import { createWidget } from '../../../reducers/dashboardcore/WidgetAction';
 import DefUI from './comps/DefUI';
 import Def from '../../../model/widget/def/Def';
 
@@ -24,12 +24,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => ({
   createInstance: (def: Def) => {
-    dispatch({
-      type: ACTION.WIDGET_CREATE,
-      payload: {
-        def,
-      },
-    });
+    dispatch(createWidget(def));
   },
 });
 

@@ -5,7 +5,7 @@ import { Layout, Result, Spin } from 'antd';
 import Widget from '../../model/widget/instance/Widget';
 import WidgetUI from './WidgetUI';
 import Dashboard from '../../model/dashboard/Dashboard';
-import { ACTION } from '../../reducers/dashboardcore/DashboardAction';
+import { ACTION, initDashboard } from '../../reducers/dashboardcore/DashboardAction';
 
 import './Share.scss';
 
@@ -29,10 +29,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => ({
   init: (id: number) => {
-    dispatch({
-      type: ACTION.DASHBOARD_INIT,
-      payload: { id },
-    });
+    dispatch(initDashboard(id));
   },
 });
 
