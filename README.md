@@ -20,6 +20,14 @@ After startup, please open "http://localhost:3000" (w/o quotes) to view it.
 
 
 
+You can also run
+
+`npm test`
+
+to check unit test, but only one ut case is provided due to time limitation.
+
+
+
 ## 2. Predefined widget defintions
 
 Four widget definitions are predefined and shipped within the demo (see **/src/persistence/SampleWidgets.ts**):
@@ -29,7 +37,7 @@ Four widget definitions are predefined and shipped within the demo (see **/src/p
 - Release: show release information which is loaded from server (**/dist/widget/releaseData.json**)
 - Label: show a label, you can change its text
 
-PS: with a little more developement, customized widget definitions can also be loaded from external source.
+PS: with a little  enhancement, customized widget definitions can also be loaded from external source.
 
 
 
