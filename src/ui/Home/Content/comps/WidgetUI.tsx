@@ -59,15 +59,15 @@ class WidgetUI extends React.Component <MyProps, MyState> {
     };
   }
 
-  static getDerivedStateFromProps(nextProps: any, prevState: any) {
-    const { widget } = nextProps;
-    if (widget !== prevState.widget) {
-      return {
-        widget,
-      };
-    }
-    return null;
-  }
+  // static getDerivedStateFromProps(nextProps: any, prevState: any) {
+  //   const { widget } = nextProps;
+  //   if (widget !== prevState.widget) {
+  //     return {
+  //       widget,
+  //     };
+  //   }
+  //   return null;
+  // }
 
   onDragStop = (e:any, d: any) => {
     const { widget, changeLayout } = this.props;
