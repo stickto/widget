@@ -69,7 +69,7 @@ In addtion, there is a instance property named **props**.
 
 and the following methods are injected to widget instance to improve its capabilities:
 
-- emitEvent: widget instance can call it to emit event, it need two parameters 
+- emitEvent: widget instance can call it to emit event, two parameters are required:
   - name: event name
   - data: event data
 
