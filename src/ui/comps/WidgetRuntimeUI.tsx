@@ -46,16 +46,6 @@ class WidgetRuntimeUI extends React.Component <MyProps, MyState> {
     };
   }
 
-  // static getDerivedStateFromProps(nextProps: any, prevState: any) {
-  //   const { widget } = nextProps;
-  //   if (widget !== prevState.widget) {
-  //     return {
-  //       widget,
-  //     };
-  //   }
-  //   return null;
-  // }
-
   componentDidMount() {
     const { widgetIns } = this.state;
     renderIns(this.container!, widgetIns, false);
