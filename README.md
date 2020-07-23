@@ -56,6 +56,22 @@ Four main concepts:
 
 ### Widget
 
+Each widget has a *static* property **settings** for widget properties & field defintion and default value:
+
+- settings:
+  - id: number
+  - name: string
+  - icon: string, icon url
+  - css: string, not implemented yet, preserved for style file url
+  - fields: array of field object
+    - name: string, field name
+    - label: string
+    - defaultValue: default value of field
+    - options: optional, array of option object, if provided then this field is a dropdown field and options is dropdown options
+      - id: string, option id, used as option value of HTML Select element
+      - name: string, option name, used as option text
+
+
 Each widget has 4 lifecycle hooks, similar with React:
 
 - constructor
